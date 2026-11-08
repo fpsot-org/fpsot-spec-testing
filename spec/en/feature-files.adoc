@@ -10,7 +10,7 @@ Both versions are tests, and both run.
 *TST-030.* Each feature file MUST exist in English and in French.
 The two versions MUST have the same file name, in one folder for each language, such as `features/en/` and `features/fr/`.
 The file name MUST be in English and in kebab-case, such as `record-a-person.feature`.
-This extends NAM-070, which covers the files of specification repositories, to feature files by analogy.
+This follows NAM-072 of the naming specification.
 Domain experts in Québec and in Canada can then read and approve the scenarios in their language.
 
 == Keywords
@@ -99,4 +99,5 @@ Many step tools read a value in this form.
 |===
 |Version |Date |Change
 |0.1.0 |2026-11-08 |First version.
+|0.1.1 |2026-11-08 |TST-030 now cites NAM-072 of the naming specification.
 |===

@@ -40,13 +40,13 @@ Each line keeps the strength of its rule: "must" and "must not" are MUST and MUS
 - Each scenario must have at least one When and one Then step; it should have one action only (TST-024).
 - A Background must hold only Given steps that every scenario needs, and should stay short (TST-025).
 - A Scenario Outline should check one behavior with several data sets, and must not check different behaviors with its rows; a Rule should group the scenarios of one business rule (TST-026).
-- Each scenario must carry a unique identifying tag; tags must be English kebab-case, extending NAM-001 and NAM-010 by analogy; group tags should name a part of the domain (TST-027).
+- Each scenario must carry a unique identifying tag; tags must be English kebab-case, following NAM-001 and NAM-010; group tags should name a part of the domain (TST-027).
 - Steps must use the terms of the domain glossary and the data models, one term per concept; codes must be the vocabulary codes, such as `person` (TST-028).
 - A functional test must act on the product only through its public interfaces; it may use setup or clock interfaces that exist only in test builds and are declared in the repository; it must not check results through internal code or the database (TST-029).
 
 ## Feature files in English and French
 
-- Each feature file must exist in English and French, with the same English kebab-case file name in `features/en/` and `features/fr/`, extending NAM-070 by analogy (TST-030).
+- Each feature file must exist in English and French, with the same English kebab-case file name in `features/en/` and `features/fr/`, following NAM-072 (TST-030).
 - The first line must be exactly `# language: en` or `# language: fr`; files must use only these keywords: Feature/Fonctionnalité, Background/Contexte, Rule/Règle, Scenario/Scénario, Scenario Outline/Plan du scénario, Examples/Exemples, Given/Étant donné, When/Quand, Then/Alors, And/Et, But/Mais (TST-031).
 - Both versions must have the same structure: rules, scenarios, examples, order, tags, number of steps with keywords from the same column, table cells, Examples rows and the values between double quotes in each step (TST-032).
 - Test data must not be translated; a change to one version must change the other in the same pull request; French must follow OQLF usage (WRT-031) and must not be raw machine translation (WRT-033) (TST-033).

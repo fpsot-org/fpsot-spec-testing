@@ -6,6 +6,12 @@ and versions follow [Semantic Versioning 2.0.0](https://semver.org/spec/v2.0.0.h
 
 ## [Unreleased]
 
+## [0.1.1] - 2026-11-08
+
+### Changed
+
+- TST-027 and TST-030 cite the naming rules for Gherkin tags (NAM-010) and feature files (NAM-072) directly, instead of extending other rules by analogy.
+
 ## [0.1.0] - 2026-11-08
 
 ### Added

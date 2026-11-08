@@ -61,7 +61,7 @@ A reader then sees each business rule with its examples.
 *TST-027.* Each scenario MUST carry a tag that identifies it, such as `@party-person-001`.
 No other scenario of the product can use that tag.
 Tags MUST be in English and in kebab-case.
-This extends NAM-001 and NAM-010 of the naming specification by analogy, since they do not cover Gherkin tags.
+This follows NAM-001 and NAM-010 of the naming specification.
 A tag that selects a group of scenarios, such as `@party`, SHOULD name a part of the domain.
 The identifying tag links a scenario to its other language version and to its test results.
 
@@ -108,4 +108,5 @@ The GovStack pages that this comparison read state no rule on test data.
 |===
 |Version |Date |Change
 |0.1.0 |2026-11-08 |First version.
+|0.1.1 |2026-11-08 |TST-027 now cites NAM-001 and NAM-010 directly.
 |===
