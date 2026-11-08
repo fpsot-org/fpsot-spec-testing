@@ -1,8 +1,48 @@
 = FPSOT testing specification
 include::_fpsot-terms.adoc[]
 
-Replace this page with the normative text of the specification.
-Start with the scope, then the conformance classes, then the requirements.
+This specification sets how the projects of the {abbr-fpsot-first} test their software and their specifications.
+It defines the test levels, from unit tests to end-to-end tests, and what each level runs for real.
+It sets how teams describe behavior in Gherkin, with domain experts, in English and in French.
+It also covers the tests of contracts and the suites that check conformance.
+It sets rules on the data that tests use, and on how continuous integration runs them.
+
+The rules are neutral on language and tools.
+They require no programming language, test runner or framework.
+Tools such as link:https://junit.org/[JUnit], link:https://cucumber.io/docs/installation/java/[Cucumber-JVM], link:https://rest-assured.io/[REST Assured] or link:https://testcontainers.com/[Testcontainers] appear only as examples.
+A later {abbr-fpsot} specification on code will hold the choices for each language.
+
+The rules come in seven parts.
+
+* xref:levels.adoc[Test levels] defines each level, what it may replace with a test double, and how to balance the levels.
+* xref:unit-integration.adoc[Unit and integration tests] sets how these tests stay isolated, repeatable and clean.
+* xref:bdd.adoc[Functional tests and BDD] sets how teams write scenarios in Gherkin.
+* xref:feature-files.adoc[Feature files in English and French] sets the keywords of each language, and how the two versions stay in parity.
+* xref:contracts-conformance.adoc[Contract tests and conformance suites] covers published contracts and the suites that a replaceable component passes.
+* xref:test-data.adoc[Test data] requires synthetic data, with reserved values and data in both languages.
+* xref:ci.adoc[Continuous integration and other checks] covers the checks that block a merge and the tests that fail at random.
+It also covers coverage, the tests of a built artifact and the checks of other topics.
+
+== Related specifications
+
+This specification builds on other {abbr-fpsot} specifications.
+The version control specification sets the protected branches whose required checks run these tests.
+The writing specification sets the plain language and the French usage of each scenario.
+The naming specification sets the names of files and tags.
+The internationalization specification sets the rules on names of persons, which the test data exercises.
+
+The data types, vocabularies and data models specifications set the form of the data that tests use and check.
+The {abbr-api-first} design specification sets the published contract that a contract test checks.
+The accessibility specification sets the accessibility tests.
+
+The future {abbr-fpsot} specifications on code and on security will add the tools of each language and the security tests.
+
+== Example and Gherkin check
+
+The folder `examples/features/` holds an example feature in English and in French.
+It describes rules of the Party model of the data models specification, with synthetic data.
+The script `examples/check-features.py` parses each feature file with the official Gherkin parser and checks parity.
+The script `examples/test-features.sh` runs it on the example and on broken files that it must reject.
 
 == Conformance
 
@@ -11,35 +51,40 @@ ____
 The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD", "SHOULD NOT", "RECOMMENDED", "NOT RECOMMENDED", "MAY", and "OPTIONAL" in this document are to be interpreted as described in BCP 14 (link:https://www.rfc-editor.org/info/rfc2119[RFC 2119], link:https://www.rfc-editor.org/info/rfc8174[RFC 8174]) when, and only when, they appear in all capitals, as shown here.
 ____
 
-The keywords follow requirement WRT-010 of the {abbr-fpsot-first} writing specification.
+The keywords follow requirement WRT-010 of the {abbr-fpsot} writing specification.
 The French version uses the French keywords of WRT-011.
 
-== Requirements
+A project conforms when its tests, its feature files, its test data and its continuous integration meet every MUST rule.
+A conformance suite conforms when it meets TST-044 to TST-048.
+Passing a conformance suite is not a certification, under TST-047.
 
-Give each requirement an anchor line with its ID, directly above its paragraph.
-The anchor looks like `+[[XYZ-001]]+`.
-The example below shows the form. Replace it with the first requirement.
+== Terms from testing practice
 
-[[TPL-001]]
-*TPL-001.* A normative statement MUST use one of the {abbr-bcp-first} 14 keywords in capitals.
-The keyword gives the rule its strength.
+The names of the test levels follow the meanings of the link:https://glossary.istqb.org/[ISTQB Glossary].
+xref:levels.adoc[Test levels] gives each definition in its own words.
+The standard on software testing is link:https://www.iso.org/standard/81291.html[ISO/IEC/IEEE 29119-1, Software and systems engineering, Software testing, Part 1: General concepts].
+This specification cites it by title only, and takes no text from it.
 
 == References
-
-List here each outside source that this page cites, with the same address as its link in the text.
-Each entry gives the title, publisher, version, date and an archived copy.
 
 === Normative
 
 * link:https://www.rfc-editor.org/info/rfc2119[RFC 2119, Key words for use in RFCs to Indicate Requirement Levels], IETF, BCP 14, 1997-03. link:https://web.archive.org/web/20261103005705/https://www.rfc-editor.org/info/rfc2119/[Archived copy]
 * link:https://www.rfc-editor.org/info/rfc8174[RFC 8174, Ambiguity of Uppercase vs Lowercase in RFC 2119 Key Words], IETF, BCP 14, 2017-05. link:https://web.archive.org/web/20261103005743/https://www.rfc-editor.org/info/rfc8174/[Archived copy]
 
-== Document history
+=== Informative
 
-Add one row for each version that changes this page.
+* link:https://cucumber.io/docs/installation/java/[Cucumber-JVM], Cucumber, 8.0.4, 2026-10-02. link:https://web.archive.org/web/20261005190303/https://cucumber.io/docs/installation/java/[Archived copy]
+* link:https://glossary.istqb.org/[ISTQB Glossary], International Software Testing Qualifications Board, 4.8.1. link:https://web.archive.org/web/20261018123520/https://glossary.istqb.org/[Archived copy]
+* link:https://www.iso.org/standard/81291.html[ISO/IEC/IEEE 29119-1, Software and systems engineering, Software testing, Part 1: General concepts], ISO, IEC and IEEE, edition 2, 2022-01. link:https://web.archive.org/web/20261018031627/https://www.iso.org/standard/81291.html[Archived copy]
+* link:https://junit.org/[JUnit], The JUnit Team, 6.1.3, 2026-08-07. link:https://web.archive.org/web/20261026214244/https://junit.org/[Archived copy]
+* link:https://rest-assured.io/[REST Assured], REST Assured, 6.3.0, 2026-10-23. link:https://web.archive.org/web/20261014084309/https://rest-assured.io/[Archived copy]
+* link:https://testcontainers.com/[Testcontainers], Testcontainers, Testcontainers for Java 2.0.5, 2026-04-20. link:https://web.archive.org/web/20261015221305/https://testcontainers.com/[Archived copy]
+
+== Document history
 
 [cols="1,1,4",options="header"]
 |===
 |Version |Date |Change
-|0.1.0 |2026-11-03 |First version.
+|0.1.0 |2026-11-08 |First version.
 |===

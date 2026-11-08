@@ -9,22 +9,35 @@ developmentStatus: concept
 softwareType: "standalone/other"
 description:
   en:
-    shortDescription: Template for FPSOT specification repositories.
+    shortDescription: Testing rules for FPSOT projects, with BDD in English and French.
     longDescription: >
-      Starting point for an FPSOT specification repository. It holds the
-      layout, the Community Specification License files, and the CI that
-      checks requirement IDs, links, languages and prose.
+      Rules for how FPSOT projects test their software and specifications:
+      test levels and test doubles, unit and integration tests, behavior-driven
+      development with Gherkin feature files in English and French kept in
+      parity, contract tests against published API descriptions, conformance
+      suites for replaceable components, synthetic test data, and tests in
+      continuous integration. The rules are neutral on language and tools.
     features:
-      - Specification repository layout
+      - Five test levels with what each may replace
+      - Gherkin feature files in English and French, checked for parity
+      - Conformance suites that are not certifications
+      - Synthetic test data with reserved values
   fr:
-    shortDescription: Gabarit des dépôts de spécification de FPSOT.
+    shortDescription: Règles sur les tests des projets FPSOT, avec le BDD en français et en anglais.
     longDescription: >
-      Point de départ d'un dépôt de spécification de FPSOT. Il contient la
-      structure, les fichiers de la Community Specification License, et
-      l'intégration continue qui vérifie les identifiants, les liens, les
-      langues et la rédaction.
+      Règles sur la façon dont les projets FPSOT testent leurs logiciels et
+      leurs spécifications : les niveaux de test et les doublures de test, les
+      tests unitaires et d’intégration, le BDD avec des fichiers de
+      fonctionnalité Gherkin en français et en anglais gardés en parité, les
+      tests de contrat sur les descriptions d’API publiées, les suites de
+      conformité des composants remplaçables, les données de test synthétiques
+      et les tests dans l’intégration continue. Les règles ne dépendent
+      d’aucun langage ni d’aucun outil.
     features:
-      - Structure d'un dépôt de spécification
+      - Cinq niveaux de test avec ce que chacun peut remplacer
+      - Fichiers de fonctionnalité Gherkin en français et en anglais, vérifiés pour la parité
+      - Suites de conformité qui ne sont pas des certifications
+      - Données de test synthétiques avec des valeurs réservées
 legal:
   license: Community-Spec-1.0
 maintenance:

@@ -1,0 +1,112 @@
+= Tests fonctionnels et BDD
+include::_fpsot-terms.adoc[]
+
+Ces règles fixent comment un projet de la {abbr-fpsot-first} décrit et teste le comportement de son produit.
+Chaque projet suit le {abbr-bdd-first}.
+Les spécialistes du domaine et l’équipe s’entendent sur des exemples de comportement, et ces exemples deviennent les tests fonctionnels.
+Les exemples sont des scénarios en link:https://cucumber.io/docs/gherkin/reference/[Gherkin], un langage en texte brut.
+Ses mots clés comprennent Étant donné, Quand et Alors.
+
+== Les scénarios comme tests fonctionnels
+
+[[TST-020]]
+*TST-020.* Chaque test fonctionnel d’un produit à règles d’affaires ou à comportement de domaine DOIT partir d’un scénario en link:https://cucumber.io/docs/gherkin/reference/[Gherkin].
+Pour un composant technique, comme une bibliothèque, les tests fonctionnels DEVRAIENT partir de scénarios.
+Les scénarios DOIVENT se trouver dans des fichiers de fonctionnalité, dans le {term-repository} du produit, à côté de son code.
+Un test fonctionnel existant PEUT garder sa forme jusqu’à son prochain changement.
+Une ou un spécialiste du domaine peut lire un scénario, et un outil peut l’exécuter sur le produit.
+La description du comportement et son test ne peuvent alors pas s’écarter l’une de l’autre.
+
+[[TST-021]]
+*TST-021.* Une équipe DEVRAIT écrire les scénarios d’un comportement avec les spécialistes du domaine, avant d’écrire le code.
+Une ou un spécialiste du domaine, une personne du développement et une personne des tests DEVRAIENT y prendre part.
+Une ou un spécialiste du domaine DEVRAIT revoir chaque scénario nouveau ou modifié dans sa demande de fusion.
+Les spécialistes du domaine connaissent les règles du programme, et un scénario qu’ils approuvent teste le bon comportement.
+
+[[TST-022]]
+*TST-022.* Un scénario DOIT vérifier un seul comportement.
+Son nom DOIT énoncer ce comportement, dans les mots du domaine.
+Un scénario qui échoue nomme alors le comportement brisé.
+
+== Étapes
+
+[[TST-023]]
+*TST-023.* Une étape DOIT dire ce qui se passe dans les termes du domaine, et non comment cela se passe.
+Une étape NE DOIT PAS contenir de détail d’une interface utilisateur, comme une page, un bouton ou un clic.
+Quand le comportement testé est l’interface elle-même, comme la navigation au clavier, une étape PEUT en nommer les parties.
+Elle NE DOIT PAS contenir de détail technique, comme une méthode {abbr-http-first}, une table ou un nom de classe.
+Les définitions d’étapes, qui sont du code, contiennent ces détails.
+Le scénario reste alors vrai quand les écrans ou le code changent, et s’exécute par des écrans ou une {abbr-api-first}.
+
+[[TST-024]]
+*TST-024.* Chaque scénario DOIT avoir au moins une étape Quand et une étape Alors.
+Un scénario DEVRAIT avoir une seule action : une étape Quand, sans étape Et après elle.
+Les étapes Étant donné fixent le contexte, l’étape Quand est l’action, et les étapes Alors vérifient le résultat.
+Un scénario qui a deux actions vérifie deux comportements, contrairement à TST-022.
+
+[[TST-025]]
+*TST-025.* Un Contexte DOIT contenir seulement des étapes Étant donné utiles à chaque scénario qu’il précède.
+Il DEVRAIT rester court, pour que le lectorat le garde en tête en lisant chaque scénario.
+Un Contexte qui contient une action cache au lectorat une partie de chaque scénario.
+
+[[TST-026]]
+*TST-026.* Un Plan du scénario DEVRAIT vérifier un seul comportement avec plusieurs jeux de données.
+Chaque ligne de son tableau Exemples contient un jeu.
+Il NE DOIT PAS employer ses lignes pour vérifier des comportements différents.
+Une Règle DEVRAIT regrouper les scénarios qui illustrent une règle d’affaires, et son nom DEVRAIT énoncer cette règle.
+Le lectorat voit alors chaque règle d’affaires avec ses exemples.
+
+== Étiquettes et termes
+
+[[TST-027]]
+*TST-027.* Chaque scénario DOIT porter une étiquette qui l’identifie, comme `@party-person-001`.
+Aucun autre scénario du produit ne peut employer cette étiquette.
+Les étiquettes DOIVENT être en anglais et en kebab-case.
+Elle étend par analogie NAM-001 et NAM-010 de la spécification sur le nommage, qui ne visent pas les étiquettes.
+Une étiquette qui choisit un groupe de scénarios, comme `@party`, DEVRAIT nommer une partie du domaine.
+L’étiquette d’identification relie un scénario à son autre version linguistique et à ses résultats de test.
+
+[[TST-028]]
+*TST-028.* Une étape DOIT employer les termes du glossaire du domaine et des modèles de données.
+Elle DOIT employer le même terme pour le même concept.
+Un code dans une étape DOIT être le code de son vocabulaire, comme `person` pour un type de partie.
+Les spécialistes lisent alors les termes de leur domaine, et l’équipe de développement trouve chaque terme dans le modèle.
+
+[[TST-029]]
+*TST-029.* Un test fonctionnel DOIT agir sur le produit seulement par ses interfaces publiques, comme une {abbr-api} ou des écrans.
+Il PEUT aussi employer des interfaces de préparation ou d’horloge propres aux versions de test, quand le {term-repository} les déclare.
+Il NE DOIT PAS vérifier ses résultats par le code interne du produit ni en lisant sa base de données.
+Le test vérifie alors le produit comme ses utilisatrices et ses utilisateurs le voient.
+L’intérieur du produit peut changer sans changement du test.
+
+== Comparaison avec GovStack
+
+L’link:https://github.com/GovStackWorkingGroup/cfr-architecture/blob/e8e7b30acd02149b2e178f5a22903a4ba9f7baa2/spec/4-interoperability-architecture/4.2-functionality-design.md[architecture de GovStack] recommande le {abbr-bdd} avec Gherkin, mais ne l’exige pas.
+{abbr-fpsot} en diffère de quatre façons.
+
+* TST-020 fait d’un scénario Gherkin le point de départ de chaque test fonctionnel d’un produit à règles d’affaires.
+* TST-023 garde les étapes déclaratives.
+La link:https://github.com/GovStackWorkingGroup/bb-digital-registries/blob/8588a219df9a8406e66c4392d0bef664b34e4e30/test/openAPI/features/data_read.feature[suite de tests du bloc Digital Registries de GovStack] nomme des méthodes {abbr-http} et des chemins dans ses étapes.
+* Chaque fichier de fonctionnalité existe en français et en anglais, selon TST-030.
+Les fichiers de fonctionnalité de GovStack que cette comparaison a lus sont en anglais seulement.
+* Les données de test doivent être synthétiques, selon TST-050.
+Les pages de GovStack que cette comparaison a lues ne fixent aucune règle sur les données de test.
+
+== Références
+
+=== Références normatives
+
+* link:https://cucumber.io/docs/gherkin/reference/[Gherkin Reference], Cucumber, 2026-11-07. link:https://web.archive.org/web/20261018184653/https://cucumber.io/docs/gherkin/reference/[Copie archivée]
+
+=== Références informatives
+
+* link:https://github.com/GovStackWorkingGroup/bb-digital-registries/blob/8588a219df9a8406e66c4392d0bef664b34e4e30/test/openAPI/features/data_read.feature[GovStack Digital Registries building block, data_read.feature], GovStack, commit 8588a21, 2026-07-28.
+* link:https://github.com/GovStackWorkingGroup/cfr-architecture/blob/e8e7b30acd02149b2e178f5a22903a4ba9f7baa2/spec/4-interoperability-architecture/4.2-functionality-design.md[GovStack Architecture, 4.2 Functionality Design], GovStack, commit e8e7b30, 2026-06-08.
+
+== Historique du document
+
+[cols="1,1,4",options="header"]
+|===
+|Version |Date |Changement
+|0.1.0 |2026-11-08 |Première version.
+|===

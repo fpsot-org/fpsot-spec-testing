@@ -1,0 +1,114 @@
+= Test levels
+include::_fpsot-terms.adoc[]
+
+These rules define the test levels of an {abbr-fpsot-first} project.
+They say what each level checks, what it may replace with a {term-test-double}, and how to balance the levels.
+
+== Levels and their purpose
+
+Each level below has one definition.
+The names keep the meanings of the link:https://glossary.istqb.org/[ISTQB Glossary], in summary.
+The glossary calls end-to-end testing and functional testing test types, not levels.
+This specification uses them as levels, because each one runs as its own group in continuous integration.
+
+Unit test::
+A test of the smallest part of the code that can run on its own.
+Examples are a function or a class.
+It checks that this part behaves as intended, apart from everything else.
+
+Integration test::
+A test of how a part of the code works with a real dependency.
+Examples are a database, a message broker or another component.
+It checks the interactions that a unit test replaces with a {term-test-double}.
+
+Contract test::
+A test that checks that a provider and a consumer use an interface as its published contract says.
+The glossary treats it as a kind of integration test.
+This specification keeps it as its own level, because it checks a published document, not one pair of components.
+
+Functional test::
+A test of a behavior of the whole product, as a domain expert describes it.
+Its scenario states what the product must do, and its result helps the owner decide whether to accept the product.
+The glossary calls this purpose acceptance testing.
+
+End-to-end test::
+A test of a whole business process, from start to finish.
+It crosses the product and the systems around it.
+It runs in an environment that resembles production.
+
+[[TST-001]]
+*TST-001.* Each test of the behavior of a project MUST belong to one level of this page.
+The project MUST mark the level of each test, such as by a folder or a tag.
+Load, performance and migration tests, under TST-052, and accessibility checks, under TST-066, sit outside the five levels.
+Continuous integration can then run each level as its own check, under TST-060.
+A reader also knows what a failing test proves and what it does not.
+
+== Test doubles
+
+A {term-test-double} stands in for a real dependency during a test.
+It can return fixed answers, record the calls it receives or hold a simple version of the dependency.
+
+[[TST-002]]
+*TST-002.* A test MUST NOT replace with a {term-test-double} what this table says its level runs for real.
+A test MAY replace what the table allows.
+An end-to-end test that replaces an outside system MUST name that system in its test report.
+Each level proves something only if it runs the parts that this proof needs.
+
+[cols="1,2,2",options="header"]
+|===
+|Level |Runs for real |May use a test double for
+|Unit test |The code of the unit. |Every dependency outside the unit, such as a database, a clock or another class.
+|Integration test |The code and each dependency that the test names, such as the database product. |Other dependencies that the test does not name.
+|Contract test |The provider code that serves the interface, or the consumer code that calls it. |The other side of the contract, built from the published contract.
+|Functional test |The product as built, through its public interfaces. |Outside systems that the product does not own, such as a payment service.
+|End-to-end test |The product and the systems of the process, as deployed. |Only an outside system that offers no test environment.
+|===
+
+[[TST-003]]
+*TST-003.* A team SHOULD check each behavior at the lowest level that can catch its faults.
+Most tests of a project SHOULD then be unit tests, and end-to-end tests SHOULD be the fewest.
+A higher level SHOULD check only what a lower level cannot, such as the work of several parts together.
+Low-level tests run fast and point to the exact fault.
+High-level tests are slow, and a failure there can come from many places.
+
+== Repeatable tests
+
+[[TST-004]]
+*TST-004.* A test MUST give the same result on each run of the same code.
+It MUST NOT depend on the order of tests, on another test or on the machine that runs it.
+It MUST NOT wait for a fixed time to let something happen.
+It MUST instead wait on a condition, with a time limit.
+A test that changes its result without a change to the code cannot prove anything.
+
+== Business rules
+
+A business rule in an {abbr-fpsot} product is plain code that an institution can override.
+No rules engine is required.
+
+[[TST-005]]
+*TST-005.* A test of a business rule MUST check the rule through its own interface, with inputs and expected results.
+It MUST NOT depend on how a team built the rule, in plain code or with a rules engine.
+The same test then checks the default rule and any rule that an institution puts in its place.
+TST-045 sets what such a replacement must pass.
+
+== Tools
+
+[[TST-006]]
+*TST-006.* A project MAY meet these rules with any language, test runner and framework.
+A project SHOULD name in its repository the tools and the versions it uses for each level.
+Each project can then pick the tools of its language, and a contributor finds them in one place.
+The future {abbr-fpsot} specification on code will set the choices for each language.
+
+== References
+
+=== Informative
+
+* link:https://glossary.istqb.org/[ISTQB Glossary], International Software Testing Qualifications Board, 4.8.1. link:https://web.archive.org/web/20261018123520/https://glossary.istqb.org/[Archived copy]
+
+== Document history
+
+[cols="1,1,4",options="header"]
+|===
+|Version |Date |Change
+|0.1.0 |2026-11-08 |First version.
+|===

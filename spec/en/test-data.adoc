@@ -1,0 +1,89 @@
+= Test data
+include::_fpsot-terms.adoc[]
+
+These rules set the data that {abbr-fpsot-first} tests, fixtures, examples and demonstrations use.
+The data is synthetic: tools or people make it up, and it describes nobody.
+It still has the form of real data, in both official languages.
+
+== Synthetic data only
+
+[[TST-050]]
+*TST-050.* Tests, fixtures, examples and demonstrations in a {term-repository}, {abbr-ci-first} runs and shared test environments MUST use synthetic data only.
+They MUST NOT use personal information from production, even in an extract, a copy, a masked or a de-identified version.
+A rehearsal of a migration on production data, in a controlled pre-production environment, is outside this specification.
+It follows the privacy law of the institution.
+Masked data often leads back to a person.
+Open source {term-repository} contents and test logs are public, and nobody can recall them.
+
+[[TST-051]]
+*TST-051.* A project SHOULD generate its synthetic data from its data models, under the data models specification.
+A generator MUST take a fixed seed, so that each run makes the same data.
+The data then has the form of real data, with each required field and each code from its vocabulary.
+A fixed seed keeps the tests repeatable, under TST-004.
+
+[[TST-052]]
+*TST-052.* A shared test environment that needs the volume of production MUST reach it with generated data.
+It MUST NOT load production data for this purpose.
+Tests of load and migration need many records, but not real ones.
+
+== Values that cannot reach a real person
+
+[[TST-053]]
+*TST-053.* Where an authority reserves values for examples or fiction, test data MUST use them.
+A message that a test sends by mistake then reaches nobody.
+
+* A telephone number of the North American Numbering Plan MUST use a line number from 555-0100 to 555-0199.
+The link:https://nanpa.com/numbering/555-line-numbers[North American Numbering Plan Administrator] reserves this range as fictitious numbers that never work.
+In the form of DMO-034, an example is `+14185550123`.
+* An email address or a web address MUST use a domain that link:https://www.rfc-editor.org/info/rfc2606[RFC 2606] reserves.
+These are `example.com`, `example.net` and `example.org`, or a name under the top-level domains `.test`, `.example` and `.invalid`.
+link:https://www.rfc-editor.org/info/rfc6761[RFC 6761] keeps them as special-use domain names.
+
+[[TST-054]]
+*TST-054.* Test data MUST NOT take a value from a real record, also where no authority reserves values.
+This covers names of persons, postal addresses, and identifiers such as a business number or a health insurance number.
+A test MUST NOT use the name of a known person, such as a public figure or a team member.
+A postal address SHOULD pair a made-up street with a real municipality, so that checks of its form pass.
+A fixture file SHOULD state at its top that its data is synthetic.
+A value can match a real one by chance, but it then links to no other fact about that person.
+
+== Data in both languages
+
+[[TST-055]]
+*TST-055.* Each test suite that handles text MUST include data in English and in French.
+It MUST also include names that test the rules of the internationalization specification, LOC-050 and LOC-051.
+Many faults show up only with accents, apostrophes or one-part names, which are common in Québec and in Canada.
+
+* A name with letters and accents of French, such as `Marie-Ève Lévesque-Côté` or `François L'Écuyer`.
+* A name with a typographic apostrophe, such as `D’Amours`, and one with a straight apostrophe.
+* A name of one part only, such as `Tanvir`.
+* A name with letters from beyond Western European languages, such as `Đặng Thị Ngọc Ánh`.
+* A name of one character, which LOC-051 requires, and a name of 100 characters, which it recommends.
+
+[[TST-056]]
+*TST-056.* A text value in a test MUST keep its exact characters, and a check MUST compare it exactly.
+A test MUST NOT remove accents or change case to make a value match.
+A product that loses an accent then fails its tests, instead of passing them.
+
+== Identifiers with a check digit
+
+[[TST-057]]
+*TST-057.* A test identifier with a check digit, such as a social insurance number, MUST come from a never-assigned range.
+Where the issuer documents no such range, it MUST be a value that fails the check.
+A valid value outside such a range can belong to a real person.
+
+== References
+
+=== Normative
+
+* link:https://nanpa.com/numbering/555-line-numbers[555 Line Numbers], North American Numbering Plan Administrator. link:https://web.archive.org/web/20260916154937/https://www.nanpa.com/numbering/555-line-numbers[Archived copy]
+* link:https://www.rfc-editor.org/info/rfc2606[RFC 2606, Reserved Top Level DNS Names], IETF, BCP 32, 1999-06. link:https://web.archive.org/web/20261101081806/https://www.rfc-editor.org/info/rfc2606/[Archived copy]
+* link:https://www.rfc-editor.org/info/rfc6761[RFC 6761, Special-Use Domain Names], IETF, 2013-02. link:https://web.archive.org/web/20261027175359/https://www.rfc-editor.org/info/rfc6761/[Archived copy]
+
+== Document history
+
+[cols="1,1,4",options="header"]
+|===
+|Version |Date |Change
+|0.1.0 |2026-11-08 |First version.
+|===

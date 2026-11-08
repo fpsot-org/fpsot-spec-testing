@@ -1,0 +1,64 @@
+= Unit and integration tests
+include::_fpsot-terms.adoc[]
+
+These rules apply to the unit tests and the integration tests of an {abbr-fpsot-first} project.
+They keep each test isolated, repeatable and fast enough to run on every change.
+
+== Unit tests
+
+[[TST-010]]
+*TST-010.* A unit test MUST run in isolation.
+It MUST NOT use the network or a shared database.
+It MUST NOT write outside a temporary folder made for the test, and MAY read files in the {term-repository}.
+Each dependency outside the unit MUST be a {term-test-double}, under TST-002.
+A unit test then runs on any machine, with no setup, and fails only when the unit is wrong.
+
+[[TST-011]]
+*TST-011.* Code that reads the time, a random value or the default time zone MUST receive its source from outside.
+The source is the clock, the random generator or the zone.
+Its unit tests MUST then supply fixed values.
+A time zone in a test MUST be a name from the time zone database, under DAT-030, such as `America/Toronto`.
+A test that reads the real clock can pass today and fail at midnight or in another zone.
+
+[[TST-012]]
+*TST-012.* A unit test SHOULD check one behavior.
+Its name MUST state that behavior and its result, such as "rejects a period whose end comes before its start".
+A failing test then names the broken behavior in the report, before anyone opens the code.
+
+[[TST-013]]
+*TST-013.* The unit tests of a project SHOULD run fast enough to run them all before each commit.
+A slow unit test SHOULD move to the integration level, or SHOULD replace its slow dependency with a {term-test-double}.
+Developers skip tests that make them wait, and a fault then reaches the pull request instead.
+
+== Integration tests
+
+[[TST-014]]
+*TST-014.* An integration test MUST use the real product of each dependency it names.
+It MUST test each version of that product that the project supports, or at least the lowest and the highest.
+It SHOULD start that product for the test run, such as in a container.
+A test that uses a stand-in product, such as an in-memory database, MUST NOT count as its integration test.
+Two database products, or two versions of one, differ in their types, their locks and their errors.
+
+[[TST-015]]
+*TST-015.* Each integration test MUST create the data it needs, and MUST NOT rely on data that another test created.
+It SHOULD give that data identifiers that no other test uses, such as new {abbr-uuid-first} values.
+Tests can then run in any order, and in parallel.
+
+[[TST-016]]
+*TST-016.* An integration test MUST leave each dependency as it found it, unless the dependency exists for it alone.
+For example, it rolls back its transaction, or it uses a database that the test run creates and removes.
+Data left behind by one test changes the result of the next one.
+
+[[TST-017]]
+*TST-017.* An integration test MUST NOT reach a shared environment or a production system.
+It MUST use only dependencies that the test run starts and controls.
+A test that writes to a shared system can corrupt the work of others.
+Its result also depends on their data.
+
+== Document history
+
+[cols="1,1,4",options="header"]
+|===
+|Version |Date |Change
+|0.1.0 |2026-11-08 |First version.
+|===

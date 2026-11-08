@@ -1,0 +1,26 @@
+# FPSOT testing specification
+
+> How FPSOT projects test their software and specifications: test levels and test doubles, unit and integration tests, BDD with Gherkin feature files in English and French with parity, contract tests against published OpenAPI descriptions, conformance suites, synthetic test data, and tests in continuous integration.
+
+## Specification
+
+- [Overview](spec/en/index.adoc): scope, parts and conformance.
+- [Test levels](spec/en/levels.adoc): TST-001 to TST-006.
+- [Unit and integration tests](spec/en/unit-integration.adoc): TST-010 to TST-017.
+- [Functional tests and BDD](spec/en/bdd.adoc): TST-020 to TST-029.
+- [Feature files in English and French](spec/en/feature-files.adoc): TST-030 to TST-036.
+- [Contract tests and conformance suites](spec/en/contracts-conformance.adoc): TST-040 to TST-048.
+- [Test data](spec/en/test-data.adoc): TST-050 to TST-057.
+- [Continuous integration and other checks](spec/en/ci.adoc): TST-060 to TST-066.
+
+## Examples
+
+- [Example feature, English](examples/features/en/record-a-person.feature)
+- [Example feature, French](examples/features/fr/record-a-person.feature)
+- [Gherkin check](examples/check-features.py)
+- [How-to guide](docs/modules/en/pages/index.adoc)
+
+## Optional
+
+- [Agent skill](skill/SKILL.md)
+- [Français](spec/fr/index.adoc)
