@@ -1,0 +1,23 @@
+code: CA
+name: {en: Canada, fr: Canada}
+rows:
+  - id: TST-021
+    text: {en: "The Digital Standards ask teams to test with users on an ongoing basis, to guide design and development. They say nothing on writing test scenarios with domain experts.", fr: "Les Normes numériques demandent aux équipes de faire des essais continus avec les utilisatrices et les utilisateurs pour orienter la conception et le développement. Elles ne disent rien sur la rédaction de scénarios de test avec les spécialistes du domaine."}
+    status: not-covered
+    source: {title: "Government of Canada Digital Standards, Treasury Board of Canada Secretariat", date: "2026-05-25", url: "https://www.canada.ca/en/government/system/digital-government/government-canada-digital-standards.html", archive: "https://web.archive.org/web/20261011062114/https://www.canada.ca/en/government/system/digital-government/government-canada-digital-standards.html"}
+    last_checked: "2026-11-08"
+  - id: TST-050
+    text: {en: "The catalogue asks organizations to minimize personal information in testing, and to use it only when authorized and when the result cannot be reached without it. Live data in preproduction must be approved, documented and controlled, and people must be told in advance. It allows personal information in tests under these conditions, while FPSOT allows synthetic data only.", fr: "Le catalogue demande aux organisations de réduire les renseignements personnels dans les tests, et de les employer seulement sur autorisation et quand le résultat est impossible sans eux. Les données réelles en préproduction doivent être approuvées, documentées et contrôlées, et les personnes doivent en être informées à l’avance. Il permet des renseignements personnels dans les tests à ces conditions, alors que FPSOT permet seulement des données synthétiques."}
+    status: looser
+    source: {title: "Canadian Centre for Cyber Security, Security and privacy controls and assurance activities catalogue (ITSP.10.033), controls PM-25 and SA-03(02)", date: "2026-03-31", url: "https://www.cyber.gc.ca/en/guidance/cyber-security-privacy-risk-management/itsp10033", archive: "https://web.archive.org/web/20260401210948/https://www.cyber.gc.ca/en/guidance/cyber-security-privacy-risk-management/itsp10033"}
+    last_checked: "2026-11-08"
+  - id: TST-060
+    text: {en: "Under its DevSecOps principles, the framework asks for automated testing of security and functionality, and for continuous integration and deployment. It does not make tests a required check of a merge, and says nothing on flaky tests or coverage.", fr: "Dans ses principes DevSecOps, le cadre demande des tests automatisés de la sécurité et des fonctionnalités, et l’intégration et le déploiement continus. Il ne fait pas des tests une vérification obligatoire d’une fusion, et ne dit rien des tests instables ni de la couverture."}
+    status: looser
+    source: {title: "Government of Canada Enterprise Architecture Framework, Treasury Board of Canada Secretariat", date: "2025-12-02", url: "https://www.canada.ca/en/government/system/digital-government/policies-standards/government-canada-enterprise-architecture-framework.html", archive: "https://web.archive.org/web/20261004133529/https://www.canada.ca/en/government/system/digital-government/policies-standards/government-canada-enterprise-architecture-framework.html"}
+    last_checked: "2026-11-08"
+  - id: TST-066
+    text: {en: "The toolkit encourages automated accessibility testing tools, but warns that a page with no errors is not for that reason accessible or compliant. It also calls for keyboard and assistive technology testing. It does not require checks in continuous integration.", fr: "La trousse encourage les outils automatisés d’essai d’accessibilité, mais rappelle qu’une page sans erreur n’est pas pour autant accessible ou conforme. Elle demande aussi des essais au clavier et avec des technologies d’assistance. Elle n’exige pas de vérifications dans l’intégration continue."}
+    status: looser
+    source: {title: "Digital Accessibility Toolkit, Accessibility Testing 101, Government of Canada", date: "2025-09-19", url: "https://a11y.canada.ca/en/accessibility-testing-101/", archive: "https://web.archive.org/web/20260308201746/https://a11y.canada.ca/en/accessibility-testing-101/"}
+    last_checked: "2026-11-08"

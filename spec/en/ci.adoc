@@ -1,0 +1,73 @@
+= Continuous integration and other checks
+include::_fpsot-terms.adoc[]
+
+These rules set how {abbr-ci-first} runs the tests of an {abbr-fpsot-first} project.
+They also point to the specifications that set the other checks, such as accessibility and security.
+
+== Required checks
+
+[[TST-060]]
+*TST-060.* Each test level that runs in {abbr-ci} MUST be a required check of the protected branches, under VCS-109.
+The unit, integration and contract tests MUST run on every pull request, with the Gherkin check of TST-034.
+Functional tests SHOULD run on every pull request.
+End-to-end tests MAY run on a schedule instead, but MUST pass before each release.
+A test that does not block a merge does not protect the `main` branch, which VCS-101 keeps releasable.
+
+[[TST-061]]
+*TST-061.* A failing test MUST block the merge of its pull request.
+A contributor MUST NOT turn off, skip or delete a failing test to make a check pass, except under TST-062.
+The removal of a test MUST be visible in the pull request, with its reason.
+A failure is the information that the test exists to give.
+
+== Flaky tests
+
+A flaky test passes and fails on the same code, with no change.
+
+[[TST-062]]
+*TST-062.* {abbr-ci} MUST NOT run a failed test again on its own to turn the failure into a pass.
+A team MUST quarantine a flaky test instead.
+It marks the test, such as with a `@quarantine` tag, and takes it out of the required check.
+A retry that nobody sees can hide a real fault, such as a race in the product.
+
+[[TST-063]]
+*TST-063.* Each quarantined test MUST have an issue that names the test and sets a deadline.
+The deadline SHOULD be within 30 days.
+By the deadline, the team MUST fix the test and bring it back, or delete it and record why.
+Until then, the test SHOULD still run outside the required check, and its results SHOULD stay visible.
+A quarantine without a deadline lasts forever, and a hidden test does not show whether a fix worked.
+
+== Coverage
+
+[[TST-064]]
+*TST-064.* {abbr-ci} SHOULD report the code coverage of the tests on each pull request.
+A project MUST NOT use a coverage figure as its only gate for a merge.
+A project MAY fail a check when coverage drops, but the review of the tests still decides.
+Coverage shows which code no test runs.
+It does not show whether a test checks the right result.
+
+== Tests of a built artifact
+
+[[TST-065]]
+*TST-065.* The functional tests MUST be able to run from outside against a built artifact.
+Examples are a native binary or a container image.
+They then use only its public interfaces, under TST-029.
+The artifact that a project releases MUST pass the functional tests before its release.
+A native build can behave differently from the code that the unit tests ran.
+For example, a build step can remove code that it thinks unused.
+
+== Other checks
+
+[[TST-066]]
+*TST-066.* Accessibility tests MUST follow the accessibility specification, ACC-040 to ACC-047.
+This specification adds no accessibility rule.
+Security tests belong to the future {abbr-fpsot} specification on security.
+Performance tests MUST take their targets from the requirements of the product.
+This specification sets no figure for speed or load, because each product has its own needs.
+
+== Document history
+
+[cols="1,1,4",options="header"]
+|===
+|Version |Date |Change
+|0.1.0 |2026-11-08 |First version.
+|===

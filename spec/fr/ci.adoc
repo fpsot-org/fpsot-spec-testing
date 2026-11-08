@@ -1,0 +1,73 @@
+= Intégration continue et autres vérifications
+include::_fpsot-terms.adoc[]
+
+Ces règles fixent comment l’{abbr-ci-first} exécute les tests d’un projet de la {abbr-fpsot-first}.
+Elles renvoient aussi aux spécifications qui fixent les autres vérifications, comme l’accessibilité et la sécurité.
+
+== Vérifications obligatoires
+
+[[TST-060]]
+*TST-060.* Chaque niveau de test qui s’exécute dans l’{abbr-ci} DOIT être une vérification obligatoire des branches protégées, selon VCS-109.
+Les tests unitaires, d’intégration et de contrat DOIVENT s’exécuter à chaque demande de fusion, avec la vérification Gherkin de TST-034.
+Les tests fonctionnels DEVRAIENT s’exécuter à chaque demande de fusion.
+Les tests de bout en bout PEUVENT plutôt s’exécuter selon un horaire, mais DOIVENT réussir avant chaque version publiée.
+Un test qui ne bloque pas une fusion ne protège pas la branche `main`, que VCS-101 garde prête à publier.
+
+[[TST-061]]
+*TST-061.* Un test qui échoue DOIT bloquer la fusion de sa demande de fusion.
+Une personne NE DOIT PAS désactiver, sauter ou supprimer un test qui échoue pour réussir une vérification, sauf selon TST-062.
+Le retrait d’un test DOIT être visible dans la demande de fusion, avec sa raison.
+Un échec est l’information que le test existe pour donner.
+
+== Tests instables
+
+Un test instable réussit et échoue sur le même code, sans aucun changement.
+
+[[TST-062]]
+*TST-062.* L’{abbr-ci} NE DOIT PAS relancer d’elle-même un test échoué pour changer l’échec en réussite.
+Une équipe DOIT plutôt mettre un test instable en quarantaine.
+Elle marque le test, par exemple avec une étiquette `@quarantine`, et le retire de la vérification obligatoire.
+Une nouvelle tentative que personne ne voit peut cacher un vrai défaut, comme une situation de concurrence dans le produit.
+
+[[TST-063]]
+*TST-063.* Chaque test en quarantaine DOIT avoir un billet qui nomme le test et fixe une échéance.
+L’échéance DEVRAIT tomber dans les 30 jours.
+À l’échéance, l’équipe DOIT corriger le test et le remettre en place, ou le supprimer et noter pourquoi.
+D’ici là, le test DEVRAIT encore s’exécuter hors de la vérification obligatoire, et ses résultats DEVRAIENT rester visibles.
+Une quarantaine sans échéance dure toujours, et un test caché ne montre pas si une correction a fonctionné.
+
+== Couverture
+
+[[TST-064]]
+*TST-064.* L’{abbr-ci} DEVRAIT rapporter la couverture du code par les tests à chaque demande de fusion.
+Un projet NE DOIT PAS employer un taux de couverture comme seul critère d’une fusion.
+Un projet PEUT faire échouer une vérification quand la couverture baisse, mais la revue des tests garde le dernier mot.
+La couverture montre quel code aucun test n’exécute.
+Elle ne montre pas si un test vérifie le bon résultat.
+
+== Tests d’un artefact construit
+
+[[TST-065]]
+*TST-065.* Les tests fonctionnels DOIVENT pouvoir s’exécuter de l’extérieur sur un artefact construit.
+Par exemple, un binaire natif ou une image de conteneur.
+Ils emploient alors seulement ses interfaces publiques, selon TST-029.
+L’artefact qu’un projet publie DOIT réussir les tests fonctionnels avant sa publication.
+Une construction native peut se comporter autrement que le code qu’ont exécuté les tests unitaires.
+Par exemple, une étape de construction peut retirer du code qu’elle croit inutilisé.
+
+== Autres vérifications
+
+[[TST-066]]
+*TST-066.* Les tests d’accessibilité DOIVENT suivre la spécification sur l’accessibilité, ACC-040 à ACC-047.
+Cette spécification n’ajoute aucune règle d’accessibilité.
+Les tests de sécurité relèvent de la future spécification de {abbr-fpsot} sur la sécurité.
+Les tests de performance DOIVENT tirer leurs cibles des exigences du produit.
+Cette spécification ne fixe aucun chiffre de vitesse ou de charge, parce que chaque produit a ses propres besoins.
+
+== Historique du document
+
+[cols="1,1,4",options="header"]
+|===
+|Version |Date |Changement
+|0.1.0 |2026-11-08 |Première version.
+|===

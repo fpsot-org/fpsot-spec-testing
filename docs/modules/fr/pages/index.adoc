@@ -1,15 +1,95 @@
-= Guide
-:page-type: explanation
+= Écrire une fonctionnalité en français et en anglais
+:page-type: how-to
 include::_fpsot-terms.adoc[]
 
-Cette page explique la spécification aux personnes qui l’adoptent.
-Chaque page de guide a un seul type.
-C’est un tutoriel, un guide pratique, une référence ou une explication.
+Ce guide écrit une petite fonctionnalité en link:https://cucumber.io/docs/gherkin/reference/[Gherkin], en français et en anglais, et la vérifie.
+Les fichiers finaux sont `examples/features/fr/record-a-person.feature` et `examples/features/en/record-a-person.feature`.
+Ils décrivent une règle du modèle Party : un nom de personne exige seulement son nom complet, selon DMO-032.
+
+== S’entendre sur les exemples
+
+Réunissez une ou un spécialiste du domaine, une personne du développement et une personne des tests, selon TST-021.
+Nommez d’abord la règle d’affaires, puis trouvez-en des exemples, avec des données synthétiques.
+Ici, les exemples sont une personne qui n’a qu’un nom et des noms avec accents et apostrophes, selon TST-055.
+
+== Écrire la version anglaise
+
+Commencez le fichier par sa langue, selon TST-031.
+Donnez à chaque scénario une étiquette d’identification, selon TST-027.
+Gardez chaque étape libre d’écrans et de code, selon TST-023.
+
+[source,gherkin]
+----
+# language: en
+@party
+Feature: Record a person as a party
+
+  Rule: The full name is the only required part of a person name
+
+    @party-person-001
+    Scenario: A person with one name only
+      Given a person who writes their name as "Tanvir"
+      When the public body records the person
+      Then the record is a party of type "person"
+      And the full name of the person is "Tanvir"
+----
+
+== Écrire la version française
+
+Employez le même nom de fichier dans le dossier `fr/`, et les mots clés de TST-031.
+Gardez les étiquettes et les données telles quelles, selon TST-032 et TST-033.
+Traduisez seulement les mots clés, les noms et le texte des étapes.
+
+[source,gherkin]
+----
+# language: fr
+@party
+Fonctionnalité: Inscrire une personne comme partie
+
+  Règle: Le nom complet est la seule partie obligatoire d’un nom de personne
+
+    @party-person-001
+    Scénario: Une personne qui n’a qu’un seul nom
+      Étant donné une personne qui écrit son nom "Tanvir"
+      Quand l’organisme public inscrit la personne
+      Alors l’enregistrement est une partie du type "person"
+      Et le nom complet de la personne est "Tanvir"
+----
+
+Le code `person` reste en anglais dans les deux versions, parce que c’est le code de son vocabulaire, selon TST-028.
+
+== Vérifier les fichiers
+
+Installez l’analyseur Gherkin à la version fixée, puis exécutez la vérification et ses tests, selon TST-034 :
+
+[source,shell]
+----
+python3 -m venv .venv
+.venv/bin/pip install -r examples/requirements.txt
+PYTHON=.venv/bin/python bash examples/test-features.sh
+----
+
+Le script affiche `PASS` quand l’exemple réussit et que chaque fichier brisé de `examples/invalid/` échoue pour la raison attendue.
+Pour vérifier seulement votre dossier, exécutez `.venv/bin/python examples/check-features.py <dossier>`.
+Le dossier contient les sous-dossiers `en/` et `fr/`.
+
+== Exécuter les scénarios
+
+Ce dépôt vérifie seulement la forme de ses fichiers de fonctionnalité.
+Un produit exécute ses scénarios avec un outil de son langage, par ses interfaces publiques, selon TST-029 et TST-035.
+Pour Java, des exemples sont Cucumber-JVM avec REST Assured, ou le soutien de Cucumber pour Quarkus.
+La future spécification de la {abbr-fpsot-first} sur le code fixera les outils de chaque langage.
+
+== Références
+
+=== Références informatives
+
+* link:https://cucumber.io/docs/gherkin/reference/[Gherkin Reference], Cucumber, 2026-11-07. link:https://web.archive.org/web/20261018184653/https://cucumber.io/docs/gherkin/reference/[Copie archivée]
 
 == Historique du document
 
 [cols="1,1,4",options="header"]
 |===
 |Version |Date |Changement
-|0.1.0 |2026-11-03 |Première version.
+|0.1.0 |2026-11-08 |Première version.
 |===

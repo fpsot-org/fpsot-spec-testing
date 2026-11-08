@@ -1,0 +1,95 @@
+= Feature files in English and French
+include::_fpsot-terms.adoc[]
+
+These rules set how an {abbr-fpsot-first} project keeps each feature file in English and in French.
+Both versions are tests, and both run.
+
+== Two versions of each feature
+
+[[TST-030]]
+*TST-030.* Each feature file MUST exist in English and in French.
+The two versions MUST have the same file name, in one folder for each language, such as `features/en/` and `features/fr/`.
+The file name MUST be in English and in kebab-case, under NAM-070, such as `record-a-person.feature`.
+Domain experts in Québec and in Canada can then read and approve the scenarios in their language.
+
+== Keywords
+
+link:https://cucumber.io/docs/gherkin/reference/[Gherkin] defines its keywords for each language in the file link:https://github.com/cucumber/gherkin/blob/33693f4b5a76bb86dee61d0b287d6f2c700813e4/gherkin-languages.json[gherkin-languages.json].
+For French, that file offers several keywords for most elements.
+
+[[TST-031]]
+*TST-031.* The first line of each feature file MUST declare its language, as `# language: en` or `# language: fr`.
+The file MUST use only the keywords of this table, which come from the official dialects of Gherkin.
+The English version declares its language too, although Gherkin reads English by default.
+One keyword per element keeps both versions easy to compare, line by line.
+This table takes `Scénario` rather than `Exemple`, because `Exemples` already names the table of a Scenario Outline.
+
+[cols="1,1",options="header"]
+|===
+|English |French
+|`Feature` |`Fonctionnalité`
+|`Background` |`Contexte`
+|`Rule` |`Règle`
+|`Scenario` |`Scénario`
+|`Scenario Outline` |`Plan du scénario`
+|`Examples` |`Exemples`
+|`Given` |`Étant donné`
+|`When` |`Quand`
+|`Then` |`Alors`
+|`And` |`Et`
+|`But` |`Mais`
+|===
+
+== Parity
+
+[[TST-032]]
+*TST-032.* The English and French versions of a feature file MUST have the same structure.
+They MUST have the same rules, scenarios and examples, in the same order, with the same tags.
+Each scenario MUST have the same number of steps, of the same kinds, in both versions.
+The cells of each data table and the rows of each Examples table MUST be the same.
+Only the keywords, the names, the descriptions, the text of the steps and the headers of the Examples tables differ.
+Both versions then check the same behaviors with the same data.
+
+[[TST-033]]
+*TST-033.* A translator MUST NOT translate the test data in a feature file.
+A name, a code, an address or an identifier is data, and keeps the same value in both versions.
+A change to one version MUST change the other in the same pull request.
+The French text MUST follow the usage of the Office québécois de la langue française, under WRT-031.
+The French version MUST NOT be a raw machine translation, under WRT-033.
+A translated value would test another case, and a version left behind would test another behavior.
+
+[[TST-034]]
+*TST-034.* Continuous integration MUST parse every feature file with an official Gherkin parser, and MUST fail on a parse error.
+It MUST also check TST-031 and TST-032, and fail when a file breaks them.
+A misspelled French keyword can make the parser read a step as plain text.
+A check of the structure then catches it.
+Tests of the check itself SHOULD include broken files that it must reject.
+The `gherkin` job of this {term-repository} is an example: `examples/check-features.py`, with the tests in `examples/test-features.sh`.
+
+[[TST-035]]
+*TST-035.* Continuous integration MUST run both versions of each feature file against the product.
+The step definitions of both languages MUST call the same code.
+A version that does not run can break without anyone noticing.
+
+== Example
+
+The feature `examples/features/en/record-a-person.feature` and its French version show these rules.
+They describe rules of the Party model of the data models specification, DMO-032 and DMO-034.
+They use synthetic data, under TST-050 to TST-056.
+In both languages, a value in a step stands between straight double quotes.
+Many step tools read a value in this form.
+
+== References
+
+=== Normative
+
+* link:https://cucumber.io/docs/gherkin/reference/[Gherkin Reference], Cucumber, 2026-11-07. link:https://web.archive.org/web/20261018184653/https://cucumber.io/docs/gherkin/reference/[Archived copy]
+* link:https://github.com/cucumber/gherkin/blob/33693f4b5a76bb86dee61d0b287d6f2c700813e4/gherkin-languages.json[Cucumber Gherkin, gherkin-languages.json], Cucumber, v42.0.1, commit 33693f4, 2026-08-05.
+
+== Document history
+
+[cols="1,1,4",options="header"]
+|===
+|Version |Date |Change
+|0.1.0 |2026-11-08 |First version.
+|===

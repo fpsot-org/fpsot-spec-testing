@@ -6,20 +6,22 @@ and versions follow [Semantic Versioning 2.0.0](https://semver.org/spec/v2.0.0.h
 
 ## [Unreleased]
 
+## [0.1.0] - 2026-11-08
+
 ### Added
 
-- `AGENTS.md`, a book per language (`spec/<lang>/book.adoc`) ending with the glossary, and a document history on each page.
-- Example requirement TPL-001 and an example comparison row in `jurisdictions/baseline.yaml`.
-- `.gitignore` for the files that the continuous integration writes.
-- `.fpsot-checks` turns on the References, RFC link and code language checks (`references`) and the US spelling check (`us-spelling`).
-- The index ends with a References section that lists RFC 2119 and RFC 8174, with their archived copies. The README says when a page needs one, and that each code block names its language.
+- Test level rules TST-001 to TST-006: five levels with one definition each, after the meanings of the ISTQB Glossary; what each level may replace with a test double; a balance toward the lowest level; repeatable tests; tests of business rules through their own interface, with no rules engine assumed; any language and tools.
+- Unit and integration test rules TST-010 to TST-017: isolation, an injected clock and random source, one behavior per test, real dependency products, own data per test, cleanup and no shared environments.
+- Functional test and BDD rules TST-020 to TST-029: Gherkin scenarios as the start of every functional test, written with domain experts; one behavior per scenario; declarative steps with no interface or implementation detail; When and Then steps, Background, Scenario Outline and Rule; identifying tags; domain terms; public interfaces only. A comparison with GovStack.
+- Feature file rules TST-030 to TST-035: an English and a French version of each feature file, with one keyword per element from the official Gherkin dialects, the same structure and untranslated data; a parser check in the continuous integration; both versions run.
+- Contract and conformance rules TST-040 to TST-048: tests against the published API description, a breaking-change check, consumer-driven contracts, event schemas, conformance suites tied to the specification version, and results that are not a certification.
+- Test data rules TST-050 to TST-056: synthetic data only, generated from the data models with a fixed seed; reserved telephone numbers and domains; no value from a real record; data in English and French with accents, apostrophes and one-part names; exact comparison.
+- Continuous integration rules TST-060 to TST-066: each level as a required check, failing tests that block a merge, flaky tests quarantined with an issue and a deadline, coverage reported but not the only gate, functional tests against a built artifact, and pointers to the accessibility and future security specifications.
+- An example feature in English and in French, `examples/features/`, for a Party rule of the data models specification, with synthetic data.
+- The Gherkin check `examples/check-features.py`, with the parser pinned in `examples/requirements.txt`, and its tests `examples/test-features.sh` with broken files that it must reject.
+- A `gherkin` job in the continuous integration that runs these tests.
+- Comparison data for twelve topics, with Canada and Québec rows.
+- How-to guide that writes a feature in English and in French and checks it.
 
-### Changed
-
-- The continuous integration runs the documentation checks, and releases can attach the PDF books.
-- Pages include the term base attributes. The guide page has a page type.
-- The French conformance section quotes RFC 8174 and points to WRT-011.
-- `NOTICE` spells out FPSOT. `NOTICES.md` names the Code of Conduct contact.
-- The conformance quote links RFC 2119 and RFC 8174, and its attribution links RFC 8174. The index cites WRT-010 and WRT-011.
-- English uses US spelling: summarize, organization, license.
-- The French pages drop the `:translation-status: pending` marker, since they are translated.
+[Unreleased]: https://github.com/fpsot-org/fpsot-spec-testing/compare/v0.1.0...HEAD
+[0.1.0]: https://github.com/fpsot-org/fpsot-spec-testing/releases/tag/v0.1.0

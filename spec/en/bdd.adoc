@@ -1,0 +1,107 @@
+= Functional tests and BDD
+include::_fpsot-terms.adoc[]
+
+These rules set how an {abbr-fpsot-first} project describes and tests the behavior of its product.
+Each project follows {abbr-bdd-first}.
+Domain experts and the team agree on examples of behavior, and these examples become the functional tests.
+The examples are scenarios in link:https://cucumber.io/docs/gherkin/reference/[Gherkin], a plain-text language with the keywords Given, When and Then.
+
+== Scenarios as the functional tests
+
+[[TST-020]]
+*TST-020.* Each functional test MUST start from a scenario in link:https://cucumber.io/docs/gherkin/reference/[Gherkin].
+The scenarios MUST be in feature files, in the {term-repository} of the product, beside its code.
+A domain expert can read a scenario, and a tool can run it against the product.
+The description of the behavior and its test then cannot drift apart.
+
+[[TST-021]]
+*TST-021.* A team SHOULD write the scenarios of a behavior with domain experts, before it writes the code.
+A domain expert, a developer and a tester SHOULD each take part.
+Each new or changed scenario SHOULD get the review of a domain expert in its pull request.
+Domain experts know the rules of the program, and a scenario that they approve tests the right behavior.
+
+[[TST-022]]
+*TST-022.* A scenario MUST check one behavior.
+Its name MUST state that behavior, in the words of the domain.
+A failing scenario then names the behavior that broke.
+
+== Steps
+
+[[TST-023]]
+*TST-023.* A step MUST state what happens in the terms of the domain, not how it happens.
+A step MUST NOT hold details of a user interface, such as a page, a button or a click.
+A step MUST NOT hold details of the implementation, such as an {abbr-http-first} method, a table or a class name.
+The step definitions, which are code, hold these details.
+The same scenario then stays true when the screens or the code change.
+It also runs through a user interface, through an {abbr-api-first} or both.
+
+[[TST-024]]
+*TST-024.* Each scenario MUST have at least one When step and one Then step.
+A scenario SHOULD have one action only: one When step, with no And step after it.
+Given steps set the context, the When step is the action, and the Then steps check the outcome.
+A scenario with two actions checks two behaviors, under TST-022.
+
+[[TST-025]]
+*TST-025.* A Background MUST hold only Given steps that every scenario of its feature or rule needs.
+It SHOULD stay short, so that a reader keeps it in mind while reading each scenario.
+A Background that holds an action hides part of each scenario from its reader.
+
+[[TST-026]]
+*TST-026.* A Scenario Outline SHOULD check one behavior with several sets of data.
+Each row of its Examples table holds one set.
+It MUST NOT use its rows to check different behaviors.
+A Rule SHOULD group the scenarios that illustrate one business rule, and its name SHOULD state that rule.
+A reader then sees each business rule with its examples.
+
+== Tags and terms
+
+[[TST-027]]
+*TST-027.* Each scenario MUST carry a tag that identifies it, such as `@party-person-001`.
+No other scenario of the product can use that tag.
+Tags MUST be in English and in kebab-case, under the naming specification, NAM-001 and NAM-010.
+A tag that selects a group of scenarios, such as `@party`, SHOULD name a part of the domain.
+The identifying tag links a scenario to its other language version and to its test results.
+
+[[TST-028]]
+*TST-028.* A step MUST use the terms of the domain glossary and of the data models.
+It MUST use the same term for the same concept.
+A code in a step MUST be the code of its vocabulary, such as `person` for a party type.
+Domain experts then read the terms of their field, and developers find each term in the model.
+
+[[TST-029]]
+*TST-029.* A functional test MUST use only the public interfaces of the product, such as an {abbr-api} or screens.
+It MUST NOT call the internal code of the product, or read or write its database directly.
+The test then checks the product as its users see it.
+The inside of the product can change with no change to the test.
+
+== Comparison with GovStack
+
+The link:https://github.com/GovStackWorkingGroup/cfr-architecture/blob/e8e7b30acd02149b2e178f5a22903a4ba9f7baa2/spec/4-interoperability-architecture/4.2-functionality-design.md[GovStack architecture] recommends {abbr-bdd} with Gherkin, but does not require it.
+{abbr-fpsot} differs from it in four ways.
+
+* TST-020 makes a Gherkin scenario the start of every functional test.
+* TST-023 keeps the steps declarative.
+The link:https://github.com/GovStackWorkingGroup/bb-digital-registries/blob/8588a219df9a8406e66c4392d0bef664b34e4e30/test/openAPI/features/data_read.feature[test suite of the GovStack Digital Registries building block] names {abbr-http} methods and paths in its steps.
+* Each feature file exists in English and in French, under TST-030.
+The GovStack feature files that this comparison read are in English only.
+* The test data must be synthetic, under TST-050.
+The GovStack pages that this comparison read state no rule on test data.
+
+== References
+
+=== Normative
+
+* link:https://cucumber.io/docs/gherkin/reference/[Gherkin Reference], Cucumber, 2026-11-07. link:https://web.archive.org/web/20261018184653/https://cucumber.io/docs/gherkin/reference/[Archived copy]
+
+=== Informative
+
+* link:https://github.com/GovStackWorkingGroup/bb-digital-registries/blob/8588a219df9a8406e66c4392d0bef664b34e4e30/test/openAPI/features/data_read.feature[GovStack Digital Registries building block, data_read.feature], GovStack, commit 8588a21, 2026-07-28.
+* link:https://github.com/GovStackWorkingGroup/cfr-architecture/blob/e8e7b30acd02149b2e178f5a22903a4ba9f7baa2/spec/4-interoperability-architecture/4.2-functionality-design.md[GovStack Architecture, 4.2 Functionality Design], GovStack, commit e8e7b30, 2026-06-08.
+
+== Document history
+
+[cols="1,1,4",options="header"]
+|===
+|Version |Date |Change
+|0.1.0 |2026-11-08 |First version.
+|===

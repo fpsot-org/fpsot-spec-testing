@@ -1,0 +1,64 @@
+= Tests unitaires et d’intégration
+include::_fpsot-terms.adoc[]
+
+Ces règles s’appliquent aux tests unitaires et aux tests d’intégration d’un projet de la {abbr-fpsot-first}.
+Elles gardent chaque test isolé, reproductible et assez rapide pour s’exécuter à chaque changement.
+
+== Tests unitaires
+
+[[TST-010]]
+*TST-010.* Un test unitaire DOIT s’exécuter de façon isolée.
+Il NE DOIT PAS employer le réseau, une base de données partagée ou un fichier hors de son dossier temporaire.
+Chaque dépendance hors de l’unité DOIT être un {term-test-double}, selon TST-002.
+Un test unitaire s’exécute alors sur toute machine, sans préparation, et échoue seulement quand l’unité est fautive.
+
+[[TST-011]]
+*TST-011.* Le code qui lit l’heure, une valeur aléatoire ou le fuseau par défaut DOIT recevoir sa source de l’extérieur.
+Cette source est l’horloge, le générateur aléatoire ou le fuseau.
+Ses tests unitaires DOIVENT alors fournir des valeurs fixes.
+Un fuseau horaire dans un test DOIT être un nom de la base de données des fuseaux horaires, selon DAT-030.
+Un exemple est `America/Toronto`.
+Un test qui lit la vraie horloge peut réussir aujourd’hui et échouer à minuit ou dans un autre fuseau.
+
+[[TST-012]]
+*TST-012.* Un test unitaire DEVRAIT vérifier un seul comportement.
+Son nom DOIT énoncer ce comportement et son résultat, par exemple « rejette une période dont la fin précède le début ».
+Un test qui échoue nomme alors le comportement brisé dans le rapport, avant que quiconque ouvre le code.
+
+[[TST-013]]
+*TST-013.* Les tests unitaires d’un projet DEVRAIENT être assez rapides pour qu’on les exécute tous avant chaque archivage.
+Un test unitaire lent DEVRAIT passer au niveau de l’intégration, ou remplacer sa dépendance lente par un {term-test-double}.
+Les équipes de développement sautent les tests qui les font attendre, et un défaut atteint alors la demande de fusion.
+
+== Tests d’intégration
+
+[[TST-014]]
+*TST-014.* Un test d’intégration DOIT employer le vrai produit de chaque dépendance qu’il nomme, dans sa version de production.
+Il DEVRAIT démarrer ce produit pour l’exécution des tests, par exemple dans un conteneur.
+Un test qui emploie un produit de remplacement, comme une base en mémoire, NE DOIT PAS compter comme test d’intégration.
+Deux produits de base de données diffèrent par leurs types, leurs verrous et leurs erreurs.
+
+[[TST-015]]
+*TST-015.* Chaque test d’intégration DOIT créer les données dont il a besoin.
+Il NE DOIT PAS compter sur des données qu’un autre test a créées.
+Il DEVRAIT donner à ces données des identifiants qu’aucun autre test n’emploie, comme de nouvelles valeurs {abbr-uuid-first}.
+Les tests peuvent alors s’exécuter dans n’importe quel ordre, et en parallèle.
+
+[[TST-016]]
+*TST-016.* Un test d’intégration DOIT laisser chaque dépendance comme il l’a trouvée, sauf si elle existe pour lui seul.
+Par exemple, il annule sa transaction, ou il emploie une base de données que l’exécution des tests crée puis supprime.
+Les données qu’un test laisse derrière lui changent le résultat du test suivant.
+
+[[TST-017]]
+*TST-017.* Un test d’intégration NE DOIT PAS atteindre un environnement partagé ou un système de production.
+Il DOIT employer seulement des dépendances que l’exécution des tests démarre et contrôle.
+Un test qui écrit dans un système partagé peut corrompre le travail des autres.
+Son résultat dépend aussi de leurs données.
+
+== Historique du document
+
+[cols="1,1,4",options="header"]
+|===
+|Version |Date |Changement
+|0.1.0 |2026-11-08 |Première version.
+|===

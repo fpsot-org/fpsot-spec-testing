@@ -26,6 +26,20 @@ jobs:
     with:
       prefix: ${{ needs.prefix.outputs.value }}
       doc-rules: true
+  gherkin:
+    # Parses every example feature file with the official Gherkin parser, checks
+    # the parity of the English and French versions, and checks that the broken
+    # files in examples/invalid/ are rejected (TST-034). A required check of the
+    # main branch.
+    if: github.ref_type != 'tag'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - uses: actions/setup-python@6d4fd22b20465ccc0f7354476588e8df7c9ca0e0 # v7.1.0
+        with:
+          python-version: '3.14'
+      - run: pip install --quiet -r examples/requirements.txt
+      - run: bash examples/test-features.sh
   diagrams:
     if: github.ref_type != 'tag'
     uses: fpsot-org/GitHub-Actions/.github/workflows/diagrams.yml@v0

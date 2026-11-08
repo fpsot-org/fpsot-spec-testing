@@ -1,0 +1,80 @@
+= Données de test
+include::_fpsot-terms.adoc[]
+
+Ces règles fixent les données qu’emploient les tests, les jeux d’essai, les exemples et les démonstrations de la {abbr-fpsot-first}.
+Les données sont synthétiques : des outils ou des personnes les inventent, et elles ne décrivent personne.
+Elles ont tout de même la forme de vraies données, dans les deux langues officielles.
+
+== Données synthétiques seulement
+
+[[TST-050]]
+*TST-050.* Les tests, les jeux d’essai, les exemples, les démonstrations et les environnements de test DOIVENT employer des données synthétiques.
+Ils NE DOIVENT PAS employer de renseignements personnels tirés d’un système de production.
+Cela vaut aussi pour un extrait, une copie, une version masquée ou une version dépersonnalisée de ces renseignements.
+On peut souvent retrouver la personne derrière des données masquées.
+Un {term-repository} en code source ouvert et ses journaux de test sont publics, et personne ne peut les rappeler.
+
+[[TST-051]]
+*TST-051.* Un projet DEVRAIT générer ses données synthétiques à partir de ses modèles, selon la spécification sur ces modèles.
+Un générateur DOIT prendre une valeur d’amorce fixe, pour que chaque exécution produise les mêmes données.
+Les données ont alors la forme de vraies données, avec chaque champ obligatoire et chaque code de son vocabulaire.
+Une amorce fixe garde les tests reproductibles, selon TST-004.
+
+[[TST-052]]
+*TST-052.* Un environnement de test qui a besoin du volume de la production DOIT l’atteindre avec des données générées.
+Il NE DOIT PAS charger de données de production à cette fin.
+Les tests de charge et de migration demandent beaucoup d’enregistrements, mais pas de vrais.
+
+== Valeurs qui ne peuvent atteindre aucune vraie personne
+
+[[TST-053]]
+*TST-053.* Quand une autorité réserve des valeurs aux exemples ou à la fiction, les données de test DOIVENT les employer.
+Un message qu’un test envoie par erreur n’atteint alors personne.
+
+* Un numéro de téléphone du plan de numérotage nord-américain DOIT employer un numéro de ligne de 555-0100 à 555-0199.
+L’link:https://nanpa.com/numbering/555-line-numbers[administrateur du plan de numérotage nord-américain] réserve cette plage à des numéros fictifs qui ne fonctionnent jamais.
+Sous la forme de DMO-034, un exemple est `+14185550123`.
+* Une adresse courriel ou une adresse Web DOIT employer un domaine que le link:https://www.rfc-editor.org/info/rfc2606[RFC 2606] réserve.
+Ce sont `example.com`, `example.net` et `example.org`, ou un nom sous les domaines de premier niveau `.test`, `.example` et `.invalid`.
+Le link:https://www.rfc-editor.org/info/rfc6761[RFC 6761] les garde comme noms de domaine à usage spécial.
+
+[[TST-054]]
+*TST-054.* Les données de test NE DOIVENT PAS reprendre une valeur d’un vrai dossier, même sans valeurs réservées.
+Cela couvre les noms de personnes, les adresses postales et les identifiants, comme un numéro d’entreprise ou d’assurance maladie.
+Un test NE DOIT PAS employer le nom d’une personne connue, comme une personnalité publique ou un membre de l’équipe.
+Une adresse postale DEVRAIT joindre une rue inventée à une vraie municipalité, pour que les vérifications de sa forme réussissent.
+Un fichier de jeu d’essai DEVRAIT indiquer en tête que ses données sont synthétiques.
+Une valeur peut correspondre par hasard à une vraie, sans se rattacher à aucun autre fait sur la personne.
+
+== Données dans les deux langues
+
+[[TST-055]]
+*TST-055.* Chaque suite de tests qui traite du texte DOIT comprendre des données en français et en anglais.
+Elle DOIT aussi comprendre des noms qui testent les règles de la spécification sur l’internationalisation, LOC-050 et LOC-051.
+Bien des défauts n’apparaissent qu’avec des accents, des apostrophes ou des noms d’une partie, courants au Québec et au Canada.
+
+* Un nom avec des lettres et des accents du français, comme `Marie-Ève Lévesque-Côté` ou `François L'Écuyer`.
+* Un nom avec une apostrophe typographique, comme `D’Amours`, et un autre avec une apostrophe droite.
+* Un nom d’une seule partie, comme `Tanvir`.
+* Un nom avec des lettres qui dépassent les langues d’Europe de l’Ouest, comme `Đặng Thị Ngọc Ánh`.
+
+[[TST-056]]
+*TST-056.* Une valeur textuelle dans un test DOIT garder ses caractères exacts, et une vérification DOIT la comparer exactement.
+Un test NE DOIT PAS retirer les accents ou changer la casse pour qu’une valeur corresponde.
+Un produit qui perd un accent échoue alors à ses tests, au lieu de les réussir.
+
+== Références
+
+=== Références normatives
+
+* link:https://nanpa.com/numbering/555-line-numbers[555 Line Numbers], North American Numbering Plan Administrator. link:https://web.archive.org/web/20260916154937/https://www.nanpa.com/numbering/555-line-numbers[Copie archivée]
+* link:https://www.rfc-editor.org/info/rfc2606[RFC 2606, Reserved Top Level DNS Names], IETF, BCP 32, 1999-06. link:https://web.archive.org/web/20261101081806/https://www.rfc-editor.org/info/rfc2606/[Copie archivée]
+* link:https://www.rfc-editor.org/info/rfc6761[RFC 6761, Special-Use Domain Names], IETF, 2013-02. link:https://web.archive.org/web/20261027175359/https://www.rfc-editor.org/info/rfc6761/[Copie archivée]
+
+== Historique du document
+
+[cols="1,1,4",options="header"]
+|===
+|Version |Date |Changement
+|0.1.0 |2026-11-08 |Première version.
+|===
