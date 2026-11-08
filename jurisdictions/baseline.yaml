@@ -15,10 +15,10 @@ topics:
 rows:
   - id: TST-001
     topic: test-levels
-    requirement: {en: "Each test belongs to one level, and the project marks that level.", fr: "Chaque test appartient à un niveau, et le projet marque ce niveau."}
+    requirement: {en: "Each test of behavior belongs to one level, and the project marks that level.", fr: "Chaque test du comportement appartient à un niveau, et le projet marque ce niveau."}
     international: {en: "The ISTQB Glossary defines unit testing as a test level for the smallest part of code that can be tested in isolation. It treats end-to-end and functional testing as test types.", fr: "Le glossaire de l’ISTQB définit le test unitaire comme un niveau de test pour la plus petite partie du code qu’on peut tester isolément. Il traite le test de bout en bout et le test fonctionnel comme des types de test."}
     international_source: {title: "ISTQB Glossary, unit testing", version: "4.8.1", url: "https://glossary.istqb.org/en_US/term/unit-testing", archive: "https://web.archive.org/web/20261010095954/https://glossary.istqb.org/en_US/term/unit-testing"}
-    fpsot: {en: "Five levels: unit, integration, contract, functional and end-to-end, each with what it may replace with a test double.", fr: "Cinq niveaux : unitaire, intégration, contrat, fonctionnel et bout en bout, chacun avec ce qu’il peut remplacer par un doublon de test."}
+    fpsot: {en: "Five levels: unit, integration, contract, functional and end-to-end, each with what it may replace with a test double.", fr: "Cinq niveaux : unitaire, intégration, contrat, fonctionnel et bout en bout, chacun avec ce qu’il peut remplacer par une doublure de test."}
   - id: TST-014
     topic: integration-tests
     requirement: {en: "An integration test uses the real product of each dependency it names.", fr: "Un test d’intégration emploie le vrai produit de chaque dépendance qu’il nomme."}
@@ -29,8 +29,8 @@ rows:
     topic: bdd
     requirement: {en: "Each functional test starts from a Gherkin scenario.", fr: "Chaque test fonctionnel part d’un scénario Gherkin."}
     international: {en: "The GovStack architecture describes behavior with Given, When and Then scenarios that tools such as Cucumber run as tests. It strongly recommends this approach, but does not make it mandatory.", fr: "L’architecture de GovStack décrit le comportement par des scénarios Étant donné, Quand et Alors, que des outils comme Cucumber exécutent comme des tests. Elle recommande fortement cette approche, sans la rendre obligatoire."}
-    international_source: {title: "GovStack Architecture, 4.2 Functionality Design", version: "commit e8e7b30", date: "2026-06-08", url: "https://github.com/GovStackWorkingGroup/cfr-architecture/blob/e8e7b30acd02149b2e178f5a22903a4ba9f7baa2/spec/4-interoperability-architecture/4.2-functionality-design.md", archive: "https://github.com/GovStackWorkingGroup/cfr-architecture/blob/e8e7b30acd02149b2e178f5a22903a4ba9f7baa2/spec/4-interoperability-architecture/4.2-functionality-design.md"}
-    fpsot: {en: "Required: every functional test starts from a scenario in a feature file beside the code.", fr: "Obligatoire : chaque test fonctionnel part d’un scénario dans un fichier de fonctionnalité, à côté du code."}
+    international_source: {title: "GovStack Architecture, 4.2 Functionality Design", version: "source commit e8e7b30", date: "2026-06-08", url: "https://specs.govstack.global/architecture/4-interoperability-architecture/4.2-functionality-design", archive: "https://github.com/GovStackWorkingGroup/cfr-architecture/blob/e8e7b30acd02149b2e178f5a22903a4ba9f7baa2/spec/4-interoperability-architecture/4.2-functionality-design.md"}
+    fpsot: {en: "Required for products with business rules or domain behavior, recommended for technical components such as libraries. Existing functional tests may keep their form until they next change.", fr: "Obligatoire pour les produits à règles d’affaires ou à comportement de domaine, recommandé pour les composants techniques comme les bibliothèques. Les tests fonctionnels existants peuvent garder leur forme jusqu’à leur prochain changement."}
   - id: TST-021
     topic: domain-experts
     requirement: {en: "Teams write scenarios with domain experts, before the code.", fr: "Les équipes écrivent les scénarios avec les spécialistes du domaine, avant le code."}
@@ -42,7 +42,7 @@ rows:
     requirement: {en: "Steps state what happens in domain terms, with no detail of the interface or the implementation.", fr: "Les étapes disent ce qui se passe dans les termes du domaine, sans détail de l’interface ni de la mise en œuvre."}
     international: {en: "Cucumber advises steps that describe what, not how, and prefers a declarative style over an imperative one that follows the user interface.", fr: "Cucumber conseille des étapes qui décrivent le quoi et non le comment, et préfère un style déclaratif à un style impératif qui suit l’interface utilisateur."}
     international_source: {title: "Cucumber, Writing better Gherkin", date: "2026-11-07", url: "https://cucumber.io/docs/bdd/better-gherkin/", archive: "https://web.archive.org/web/20260207195808/https://cucumber.io/docs/bdd/better-gherkin/"}
-    fpsot: {en: "Required: no page, button, click, HTTP method, table or class name in a step.", fr: "Obligatoire : ni page, ni bouton, ni clic, ni méthode HTTP, ni table, ni nom de classe dans une étape."}
+    fpsot: {en: "Required: no page, button, click, HTTP method, table or class name in a step, unless the interface itself is under test.", fr: "Obligatoire : ni page, ni bouton, ni clic, ni méthode HTTP, ni table, ni nom de classe dans une étape, sauf si l’interface elle-même est testée."}
   - id: TST-031
     topic: feature-languages
     requirement: {en: "Each feature file declares its language and uses one fixed keyword per element.", fr: "Chaque fichier de fonctionnalité déclare sa langue et emploie un seul mot clé fixe par élément."}
@@ -66,7 +66,7 @@ rows:
     requirement: {en: "Tests use synthetic data only, never production personal information.", fr: "Les tests emploient seulement des données synthétiques, jamais des renseignements personnels de production."}
     international: {en: "NIST controls PM-25 and SA-3(2) ask an organization to minimize personal information in testing, and to approve and control live data in preproduction environments.", fr: "Les mesures PM-25 et SA-3(2) du NIST demandent à une organisation de réduire les renseignements personnels dans les tests, et d’approuver et de contrôler les données réelles dans les environnements de préproduction."}
     international_source: {title: "NIST SP 800-53 Rev. 5, Security and Privacy Controls for Information Systems and Organizations", version: "Revision 5, updates as of 2020-12-10", date: "2020-09", url: "https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-53r5.pdf", archive: "https://web.archive.org/web/20261026212244/https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-53r5.pdf"}
-    fpsot: {en: "Synthetic data only. No extract, copy, masked or de-identified version of production personal information.", fr: "Seulement des données synthétiques. Aucun extrait, aucune copie, aucune version masquée ou dépersonnalisée de renseignements personnels de production."}
+    fpsot: {en: "Synthetic data only in repositories, continuous integration and shared test environments. No extract, copy, masked or de-identified version of production personal information. A migration rehearsal in a controlled pre-production environment is outside the specification.", fr: "Seulement des données synthétiques dans les dépôts, l’intégration continue et les environnements de test partagés. Aucun extrait, aucune copie, aucune version masquée ou dépersonnalisée de renseignements personnels de production. La répétition d’une migration dans un environnement de préproduction contrôlé est hors de la spécification."}
   - id: TST-053
     topic: reserved-values
     requirement: {en: "Test data uses values reserved for examples, where they exist.", fr: "Les données de test emploient les valeurs réservées aux exemples, quand il en existe."}

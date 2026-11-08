@@ -8,11 +8,12 @@ Elles ont tout de même la forme de vraies données, dans les deux langues offic
 == Données synthétiques seulement
 
 [[TST-050]]
-*TST-050.* Les tests, les jeux d’essai, les exemples, les démonstrations et les environnements de test DOIVENT employer des données synthétiques.
-Ils NE DOIVENT PAS employer de renseignements personnels tirés d’un système de production.
-Cela vaut aussi pour un extrait, une copie, une version masquée ou une version dépersonnalisée de ces renseignements.
-On peut souvent retrouver la personne derrière des données masquées.
-Un {term-repository} en code source ouvert et ses journaux de test sont publics, et personne ne peut les rappeler.
+*TST-050.* Les environnements de test partagés et les exécutions de tests dans l’{abbr-ci-first} DOIVENT employer seulement des données synthétiques.
+Les tests, jeux d’essai, exemples et démonstrations d’un {term-repository} le DOIVENT aussi.
+Ils NE DOIVENT PAS employer de renseignements personnels de production, même extraits, copiés, masqués ou dépersonnalisés.
+La répétition d’une migration sur des données de production, dans un environnement de préproduction contrôlé, est hors de cette spécification.
+Elle suit la loi de l’institution sur la protection des renseignements personnels.
+Des données masquées mènent souvent à une personne, et un {term-repository} public et ses journaux ne se rappellent pas.
 
 [[TST-051]]
 *TST-051.* Un projet DEVRAIT générer ses données synthétiques à partir de ses modèles, selon la spécification sur ces modèles.
@@ -21,7 +22,7 @@ Les données ont alors la forme de vraies données, avec chaque champ obligatoir
 Une amorce fixe garde les tests reproductibles, selon TST-004.
 
 [[TST-052]]
-*TST-052.* Un environnement de test qui a besoin du volume de la production DOIT l’atteindre avec des données générées.
+*TST-052.* Un environnement de test partagé qui a besoin du volume de la production DOIT l’atteindre avec des données générées.
 Il NE DOIT PAS charger de données de production à cette fin.
 Les tests de charge et de migration demandent beaucoup d’enregistrements, mais pas de vrais.
 
@@ -57,11 +58,19 @@ Bien des défauts n’apparaissent qu’avec des accents, des apostrophes ou des
 * Un nom avec une apostrophe typographique, comme `D’Amours`, et un autre avec une apostrophe droite.
 * Un nom d’une seule partie, comme `Tanvir`.
 * Un nom avec des lettres qui dépassent les langues d’Europe de l’Ouest, comme `Đặng Thị Ngọc Ánh`.
+* Un nom d’un seul caractère, que LOC-051 oblige un produit à accepter, et un nom de 100 caractères, qu’elle recommande.
 
 [[TST-056]]
 *TST-056.* Une valeur textuelle dans un test DOIT garder ses caractères exacts, et une vérification DOIT la comparer exactement.
 Un test NE DOIT PAS retirer les accents ou changer la casse pour qu’une valeur corresponde.
 Un produit qui perd un accent échoue alors à ses tests, au lieu de les réussir.
+
+== Identifiants à chiffre de contrôle
+
+[[TST-057]]
+*TST-057.* Un identifiant de test à chiffre de contrôle, comme un numéro d’assurance sociale, DOIT venir d’une plage jamais attribuée.
+Si l’émetteur ne documente aucune telle plage, ce DOIT être une valeur qui échoue au contrôle.
+Une valeur valide hors d’une telle plage peut appartenir à une vraie personne.
 
 == Références
 

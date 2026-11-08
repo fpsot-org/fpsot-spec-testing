@@ -10,8 +10,10 @@ Ses mots clés comprennent Étant donné, Quand et Alors.
 == Les scénarios comme tests fonctionnels
 
 [[TST-020]]
-*TST-020.* Chaque test fonctionnel DOIT partir d’un scénario en link:https://cucumber.io/docs/gherkin/reference/[Gherkin].
+*TST-020.* Chaque test fonctionnel d’un produit à règles d’affaires ou à comportement de domaine DOIT partir d’un scénario en link:https://cucumber.io/docs/gherkin/reference/[Gherkin].
+Pour un composant technique, comme une bibliothèque, les tests fonctionnels DEVRAIENT partir de scénarios.
 Les scénarios DOIVENT se trouver dans des fichiers de fonctionnalité, dans le {term-repository} du produit, à côté de son code.
+Un test fonctionnel existant PEUT garder sa forme jusqu’à son prochain changement.
 Une ou un spécialiste du domaine peut lire un scénario, et un outil peut l’exécuter sur le produit.
 La description du comportement et son test ne peuvent alors pas s’écarter l’une de l’autre.
 
@@ -31,10 +33,10 @@ Un scénario qui échoue nomme alors le comportement brisé.
 [[TST-023]]
 *TST-023.* Une étape DOIT dire ce qui se passe dans les termes du domaine, et non comment cela se passe.
 Une étape NE DOIT PAS contenir de détail d’une interface utilisateur, comme une page, un bouton ou un clic.
-Une étape NE DOIT PAS contenir de détail de mise en œuvre, comme une méthode {abbr-http-first} ou une table.
+Quand le comportement testé est l’interface elle-même, comme la navigation au clavier, une étape PEUT en nommer les parties.
+Elle NE DOIT PAS contenir de détail technique, comme une méthode {abbr-http-first}, une table ou un nom de classe.
 Les définitions d’étapes, qui sont du code, contiennent ces détails.
-Le même scénario reste alors vrai quand les écrans ou le code changent.
-Il s’exécute aussi par une interface utilisateur, par une {abbr-api-first} ou par les deux.
+Le scénario reste alors vrai quand les écrans ou le code changent, et s’exécute par des écrans ou une {abbr-api-first}.
 
 [[TST-024]]
 *TST-024.* Chaque scénario DOIT avoir au moins une étape Quand et une étape Alors.
@@ -59,7 +61,8 @@ Le lectorat voit alors chaque règle d’affaires avec ses exemples.
 [[TST-027]]
 *TST-027.* Chaque scénario DOIT porter une étiquette qui l’identifie, comme `@party-person-001`.
 Aucun autre scénario du produit ne peut employer cette étiquette.
-Les étiquettes DOIVENT être en anglais et en kebab-case, selon la spécification sur le nommage, NAM-001 et NAM-010.
+Les étiquettes DOIVENT être en anglais et en kebab-case.
+Elle étend par analogie NAM-001 et NAM-010 de la spécification sur le nommage, qui ne visent pas les étiquettes.
 Une étiquette qui choisit un groupe de scénarios, comme `@party`, DEVRAIT nommer une partie du domaine.
 L’étiquette d’identification relie un scénario à son autre version linguistique et à ses résultats de test.
 
@@ -70,8 +73,9 @@ Un code dans une étape DOIT être le code de son vocabulaire, comme `person` po
 Les spécialistes lisent alors les termes de leur domaine, et l’équipe de développement trouve chaque terme dans le modèle.
 
 [[TST-029]]
-*TST-029.* Un test fonctionnel DOIT employer seulement les interfaces publiques du produit, comme une {abbr-api} ou des écrans.
-Il NE DOIT PAS appeler le code interne du produit, ni lire ou écrire directement dans sa base de données.
+*TST-029.* Un test fonctionnel DOIT agir sur le produit seulement par ses interfaces publiques, comme une {abbr-api} ou des écrans.
+Il PEUT aussi employer des interfaces de préparation ou d’horloge propres aux versions de test, quand le {term-repository} les déclare.
+Il NE DOIT PAS vérifier ses résultats par le code interne du produit ni en lisant sa base de données.
 Le test vérifie alors le produit comme ses utilisatrices et ses utilisateurs le voient.
 L’intérieur du produit peut changer sans changement du test.
 
@@ -80,7 +84,7 @@ L’intérieur du produit peut changer sans changement du test.
 L’link:https://github.com/GovStackWorkingGroup/cfr-architecture/blob/e8e7b30acd02149b2e178f5a22903a4ba9f7baa2/spec/4-interoperability-architecture/4.2-functionality-design.md[architecture de GovStack] recommande le {abbr-bdd} avec Gherkin, mais ne l’exige pas.
 {abbr-fpsot} en diffère de quatre façons.
 
-* TST-020 fait d’un scénario Gherkin le point de départ de chaque test fonctionnel.
+* TST-020 fait d’un scénario Gherkin le point de départ de chaque test fonctionnel d’un produit à règles d’affaires.
 * TST-023 garde les étapes déclaratives.
 La link:https://github.com/GovStackWorkingGroup/bb-digital-registries/blob/8588a219df9a8406e66c4392d0bef664b34e4e30/test/openAPI/features/data_read.feature[suite de tests du bloc Digital Registries de GovStack] nomme des méthodes {abbr-http} et des chemins dans ses étapes.
 * Chaque fichier de fonctionnalité existe en français et en anglais, selon TST-030.

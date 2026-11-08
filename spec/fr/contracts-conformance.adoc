@@ -9,9 +9,11 @@ Une suite de conformité vérifie qu’un composant respecte une spécification,
 
 [[TST-040]]
 *TST-040.* Le fournisseur d’une {abbr-api-first} DOIT tester son serveur par rapport à la description publiée, selon API-020 et API-021.
+C’est plus strict qu’API-021, qui recommande seulement ces tests dans l’intégration continue.
 Chaque réponse de ces tests DOIT respecter le schéma que la description donne pour son opération et son code d’état.
 Les tests DEVRAIENT appeler chaque opération, et DEVRAIENT produire chaque code d’état que la description énumère.
 Les clients se fondent sur la description publiée, donc un serveur qui s’en écarte les brise.
+Seul un test détecte un tel écart.
 
 [[TST-041]]
 *TST-041.* Un fournisseur DOIT comparer sa description avec celle de sa dernière version publiée, dans l’intégration continue.
@@ -74,7 +76,7 @@ Un résultat nomme la version de la suite et l’issue de chaque exigence, selon
 
 === Références informatives
 
-* link:https://govstack.global/software/how-is-compliance-measured/[How is compliance measured?], GovStack. link:https://web.archive.org/web/20260607201230/https://govstack.global/software/how-is-compliance-measured/[Copie archivée]
+* link:https://govstack.global/software/how-is-compliance-measured/[How is compliance measured?], GovStack, 2026. link:https://web.archive.org/web/20260607201230/https://govstack.global/software/how-is-compliance-measured/[Copie archivée]
 
 == Historique du document
 

@@ -9,7 +9,8 @@ Les deux versions sont des tests, et les deux s’exécutent.
 [[TST-030]]
 *TST-030.* Chaque fichier de fonctionnalité DOIT exister en français et en anglais.
 Les deux versions DOIVENT avoir le même nom de fichier, dans un dossier par langue, comme `features/en/` et `features/fr/`.
-Le nom de fichier DOIT être en anglais et en kebab-case, selon NAM-070, comme `record-a-person.feature`.
+Le nom de fichier DOIT être en anglais et en kebab-case, comme `record-a-person.feature`.
+Cette exigence étend par analogie NAM-070, qui vise les fichiers des dépôts de spécification, aux fichiers de fonctionnalité.
 Les spécialistes du domaine au Québec et au Canada peuvent alors lire et approuver les scénarios dans leur langue.
 
 == Mots clés
@@ -18,7 +19,7 @@ link:https://cucumber.io/docs/gherkin/reference/[Gherkin] définit ses mots clé
 Pour le français, ce fichier offre plusieurs mots clés pour la plupart des éléments.
 
 [[TST-031]]
-*TST-031.* La première ligne de chaque fichier de fonctionnalité DOIT déclarer sa langue, sous la forme `# language: fr` ou `# language: en`.
+*TST-031.* La première ligne de chaque fichier de fonctionnalité DOIT être exactement `# language: fr` ou `# language: en`.
 Le fichier DOIT employer seulement les mots clés de ce tableau, qui viennent des dialectes officiels de Gherkin.
 La version anglaise déclare aussi sa langue, même si Gherkin lit l’anglais par défaut.
 Un seul mot clé par élément permet de comparer facilement les deux versions, ligne par ligne.
@@ -45,9 +46,9 @@ Ce tableau prend `Scénario` plutôt qu’`Exemple`, parce qu’`Exemples` nomme
 [[TST-032]]
 *TST-032.* Les versions française et anglaise d’un fichier de fonctionnalité DOIVENT avoir la même structure.
 Elles DOIVENT avoir les mêmes règles, scénarios et exemples, dans le même ordre, avec les mêmes étiquettes.
-Chaque scénario DOIT avoir le même nombre d’étapes, des mêmes sortes, dans les deux versions.
-Les cellules de chaque tableau de données et les lignes de chaque tableau Exemples DOIVENT être les mêmes.
-Seuls les mots clés, les noms, les descriptions, le texte des étapes et les en-têtes des tableaux Exemples diffèrent.
+Chaque scénario DOIT avoir le même nombre d’étapes, avec des mots clés de la même colonne du tableau de TST-031.
+Les cellules des tableaux, les lignes des tableaux Exemples et les valeurs entre guillemets des étapes DOIVENT être les mêmes.
+Seuls diffèrent les mots clés, les noms, les descriptions des fonctionnalités et règles, le reste des étapes et les en-têtes.
 Les deux versions vérifient alors les mêmes comportements avec les mêmes données.
 
 [[TST-033]]
@@ -60,9 +61,9 @@ Une valeur traduite testerait un autre cas, et une version laissée en arrière 
 
 [[TST-034]]
 *TST-034.* L’intégration continue DOIT analyser chaque fichier de fonctionnalité avec un analyseur officiel de Gherkin.
-Elle DOIT échouer à une erreur d’analyse.
-Elle DOIT aussi vérifier TST-031 et TST-032, et échouer quand un fichier les enfreint.
-Un mot clé mal écrit peut changer une étape en texte simple, que seule la vérification de structure révèle.
+Un analyseur officiel est une mise en œuvre du projet link:https://github.com/cucumber/gherkin/blob/33693f4b5a76bb86dee61d0b287d6f2c700813e4/README.md[cucumber/gherkin], comme `gherkin-official` pour Python.
+L’intégration continue DOIT échouer à une erreur d’analyse, ou quand un fichier enfreint TST-031, TST-032 ou TST-036.
+Un mot clé mal écrit peut changer une étape en texte simple, que seules ces vérifications révèlent.
 Les tests de la vérification elle-même DEVRAIENT comprendre des fichiers brisés qu’elle doit rejeter.
 La tâche `gherkin` de ce {term-repository} en est un exemple : `examples/check-features.py`, avec ses tests dans `examples/test-features.sh`.
 
@@ -70,6 +71,11 @@ La tâche `gherkin` de ce {term-repository} en est un exemple : `examples/check-
 *TST-035.* L’intégration continue DOIT exécuter les deux versions de chaque fichier de fonctionnalité sur le produit.
 Les définitions d’étapes des deux langues DOIVENT appeler le même code.
 Une version qui ne s’exécute pas peut se briser sans que personne le remarque.
+
+[[TST-036]]
+*TST-036.* Un scénario, un Plan du scénario et un Contexte NE DOIVENT PAS avoir de description.
+Leur nom dit ce qu’ils vérifient, selon TST-022.
+L’analyseur lit une étape au mot clé mal écrit comme une description, et la vérification de TST-034 les rejette.
 
 == Exemple
 
@@ -85,6 +91,7 @@ Beaucoup d’outils d’étapes lisent une valeur sous cette forme, et les deux 
 
 * link:https://cucumber.io/docs/gherkin/reference/[Gherkin Reference], Cucumber, 2026-11-07. link:https://web.archive.org/web/20261018184653/https://cucumber.io/docs/gherkin/reference/[Copie archivée]
 * link:https://github.com/cucumber/gherkin/blob/33693f4b5a76bb86dee61d0b287d6f2c700813e4/gherkin-languages.json[Cucumber Gherkin, gherkin-languages.json], Cucumber, v42.0.1, commit 33693f4, 2026-08-05.
+* link:https://github.com/cucumber/gherkin/blob/33693f4b5a76bb86dee61d0b287d6f2c700813e4/README.md[Cucumber Gherkin, README.md], Cucumber, v42.0.1, commit 33693f4, 2026-08-05.
 
 == Historique du document
 

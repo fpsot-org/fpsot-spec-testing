@@ -9,8 +9,10 @@ The examples are scenarios in link:https://cucumber.io/docs/gherkin/reference/[G
 == Scenarios as the functional tests
 
 [[TST-020]]
-*TST-020.* Each functional test MUST start from a scenario in link:https://cucumber.io/docs/gherkin/reference/[Gherkin].
+*TST-020.* Each functional test of a product with domain behavior or business rules MUST start from a scenario in link:https://cucumber.io/docs/gherkin/reference/[Gherkin].
+For a technical component, such as a library, functional tests SHOULD start from scenarios.
 The scenarios MUST be in feature files, in the {term-repository} of the product, beside its code.
+An existing functional test MAY keep its form until it next changes.
 A domain expert can read a scenario, and a tool can run it against the product.
 The description of the behavior and its test then cannot drift apart.
 
@@ -30,10 +32,10 @@ A failing scenario then names the behavior that broke.
 [[TST-023]]
 *TST-023.* A step MUST state what happens in the terms of the domain, not how it happens.
 A step MUST NOT hold details of a user interface, such as a page, a button or a click.
+When the behavior under test is the interface itself, such as keyboard navigation, a step MAY name its parts.
 A step MUST NOT hold details of the implementation, such as an {abbr-http-first} method, a table or a class name.
 The step definitions, which are code, hold these details.
-The same scenario then stays true when the screens or the code change.
-It also runs through a user interface, through an {abbr-api-first} or both.
+The scenario then stays true when the screens or the code change, and runs through screens or an {abbr-api-first}.
 
 [[TST-024]]
 *TST-024.* Each scenario MUST have at least one When step and one Then step.
@@ -58,7 +60,8 @@ A reader then sees each business rule with its examples.
 [[TST-027]]
 *TST-027.* Each scenario MUST carry a tag that identifies it, such as `@party-person-001`.
 No other scenario of the product can use that tag.
-Tags MUST be in English and in kebab-case, under the naming specification, NAM-001 and NAM-010.
+Tags MUST be in English and in kebab-case.
+This extends NAM-001 and NAM-010 of the naming specification by analogy, since they do not cover Gherkin tags.
 A tag that selects a group of scenarios, such as `@party`, SHOULD name a part of the domain.
 The identifying tag links a scenario to its other language version and to its test results.
 
@@ -69,8 +72,9 @@ A code in a step MUST be the code of its vocabulary, such as `person` for a part
 Domain experts then read the terms of their field, and developers find each term in the model.
 
 [[TST-029]]
-*TST-029.* A functional test MUST use only the public interfaces of the product, such as an {abbr-api} or screens.
-It MUST NOT call the internal code of the product, or read or write its database directly.
+*TST-029.* A functional test MUST act on the product only through its public interfaces, such as an {abbr-api} or screens.
+It MAY also use setup or clock interfaces that exist only in test builds, when the {term-repository} declares them.
+It MUST NOT check its results through the internal code of the product or by reading its database.
 The test then checks the product as its users see it.
 The inside of the product can change with no change to the test.
 
@@ -79,7 +83,7 @@ The inside of the product can change with no change to the test.
 The link:https://github.com/GovStackWorkingGroup/cfr-architecture/blob/e8e7b30acd02149b2e178f5a22903a4ba9f7baa2/spec/4-interoperability-architecture/4.2-functionality-design.md[GovStack architecture] recommends {abbr-bdd} with Gherkin, but does not require it.
 {abbr-fpsot} differs from it in four ways.
 
-* TST-020 makes a Gherkin scenario the start of every functional test.
+* TST-020 makes a Gherkin scenario the start of every functional test of a product with business rules.
 * TST-023 keeps the steps declarative.
 The link:https://github.com/GovStackWorkingGroup/bb-digital-registries/blob/8588a219df9a8406e66c4392d0bef664b34e4e30/test/openAPI/features/data_read.feature[test suite of the GovStack Digital Registries building block] names {abbr-http} methods and paths in its steps.
 * Each feature file exists in English and in French, under TST-030.

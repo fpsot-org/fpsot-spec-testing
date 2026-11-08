@@ -2,7 +2,7 @@
 include::_fpsot-terms.adoc[]
 
 Ces règles définissent les niveaux de test d’un projet de la {abbr-fpsot-first}.
-Elles disent ce que vérifie chaque niveau, ce qu’il peut remplacer par un {term-test-double}, et comment équilibrer les niveaux.
+Elles disent ce que vérifie chaque niveau, ce qu’il peut remplacer par une {term-test-double}, et comment équilibrer les niveaux.
 
 == Niveaux et leur but
 
@@ -19,7 +19,7 @@ Il vérifie que cette partie se comporte comme prévu, à l’écart du reste.
 Test d’intégration::
 Test de la façon dont une partie du code fonctionne avec une dépendance réelle.
 Par exemple, une base de données, un courtier de messages ou un autre composant.
-Il vérifie les interactions qu’un test unitaire remplace par un {term-test-double}.
+Il vérifie les interactions qu’un test unitaire remplace par une {term-test-double}.
 
 Test de contrat::
 Test qui vérifie qu’un fournisseur et un consommateur emploient une interface comme le dit son contrat publié.
@@ -38,25 +38,27 @@ Il traverse le produit et les systèmes qui l’entourent.
 Il s’exécute dans un environnement qui ressemble à la production.
 
 [[TST-001]]
-*TST-001.* Chaque test d’un projet DOIT appartenir à un niveau de cette page.
+*TST-001.* Chaque test du comportement d’un projet DOIT appartenir à un niveau de cette page.
 Le projet DOIT marquer le niveau de chaque test, par exemple par un dossier ou une étiquette.
+Les tests de charge, de performance et de migration, selon TST-052, sont hors des cinq niveaux.
+Les vérifications d’accessibilité, selon TST-066, le sont aussi.
 L’intégration continue peut alors exécuter chaque niveau comme une vérification distincte, selon TST-060.
 Le lectorat sait aussi ce que prouve un test qui échoue, et ce qu’il ne prouve pas.
 
-== Doublons de test
+== Doublures de test
 
-Un {term-test-double} remplace une dépendance réelle pendant un test.
-Il peut renvoyer des réponses fixes, noter les appels qu’il reçoit ou contenir une version simple de la dépendance.
+Une {term-test-double} remplace une dépendance réelle pendant un test.
+Elle peut renvoyer des réponses fixes, noter les appels qu’elle reçoit ou contenir une version simple de la dépendance.
 
 [[TST-002]]
-*TST-002.* Un test NE DOIT PAS remplacer par un {term-test-double} ce que ce tableau fait exécuter réellement à son niveau.
+*TST-002.* Un test NE DOIT PAS remplacer par une {term-test-double} ce que ce tableau fait exécuter réellement à son niveau.
 Un test PEUT remplacer ce que le tableau permet.
 Un test de bout en bout qui remplace un système externe DOIT nommer ce système dans son rapport de test.
 Chaque niveau ne prouve quelque chose que s’il exécute les parties dont cette preuve a besoin.
 
 [cols="1,2,2",options="header"]
 |===
-|Niveau |S’exécute réellement |Peut employer un doublon de test pour
+|Niveau |S’exécute réellement |Peut employer une doublure de test pour
 |Test unitaire |Le code de l’unité. |Chaque dépendance hors de l’unité, comme une base de données, une horloge ou une autre classe.
 |Test d’intégration |Le code et chaque dépendance que nomme le test, comme le produit de base de données. |Les autres dépendances, que le test ne nomme pas.
 |Test de contrat |Le code du fournisseur qui sert l’interface, ou le code du consommateur qui l’appelle. |L’autre côté du contrat, construit à partir du contrat publié.

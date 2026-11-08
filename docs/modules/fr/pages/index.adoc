@@ -50,7 +50,7 @@ Fonctionnalité: Inscrire une personne comme partie
 
     @party-person-001
     Scénario: Une personne qui n’a qu’un seul nom
-      Étant donné une personne qui écrit son nom "Tanvir"
+      Étant donné une personne dont le nom s’écrit "Tanvir"
       Quand l’organisme public inscrit la personne
       Alors l’enregistrement est une partie du type "person"
       Et le nom complet de la personne est "Tanvir"
@@ -77,14 +77,19 @@ Le dossier contient les sous-dossiers `en/` et `fr/`.
 
 Ce dépôt vérifie seulement la forme de ses fichiers de fonctionnalité.
 Un produit exécute ses scénarios avec un outil de son langage, par ses interfaces publiques, selon TST-029 et TST-035.
-Pour Java, des exemples sont Cucumber-JVM avec REST Assured, ou le soutien de Cucumber pour Quarkus.
+Pour Java, des exemples sont link:https://cucumber.io/docs/installation/java/[Cucumber-JVM] ou link:https://junit.org/[JUnit] avec link:https://rest-assured.io/[REST Assured] et link:https://testcontainers.com/[Testcontainers], ou link:https://docs.quarkiverse.io/quarkus-cucumber/dev/index.html[Quarkus Cucumber].
 La future spécification de la {abbr-fpsot-first} sur le code fixera les outils de chaque langage.
 
 == Références
 
 === Références informatives
 
+* link:https://cucumber.io/docs/installation/java/[Cucumber-JVM], Cucumber, 8.0.4, 2026-10-02. link:https://web.archive.org/web/20261005190303/https://cucumber.io/docs/installation/java/[Copie archivée]
 * link:https://cucumber.io/docs/gherkin/reference/[Gherkin Reference], Cucumber, 2026-11-07. link:https://web.archive.org/web/20261018184653/https://cucumber.io/docs/gherkin/reference/[Copie archivée]
+* link:https://junit.org/[JUnit], The JUnit Team, 6.1.3, 2026-08-07. link:https://web.archive.org/web/20261026214244/https://junit.org/[Copie archivée]
+* link:https://rest-assured.io/[REST Assured], REST Assured, 6.3.0, 2026-10-23. link:https://web.archive.org/web/20261014084309/https://rest-assured.io/[Copie archivée]
+* link:https://testcontainers.com/[Testcontainers], Testcontainers, Testcontainers for Java 2.0.5, 2026-04-20. link:https://web.archive.org/web/20261015221305/https://testcontainers.com/[Copie archivée]
+* link:https://docs.quarkiverse.io/quarkus-cucumber/dev/index.html[Quarkus Cucumber], Quarkiverse, 1.3.0, 2025-03-10. link:https://web.archive.org/web/20260711150144/https://docs.quarkiverse.io/quarkus-cucumber/dev/index.html[Copie archivée]
 
 == Historique du document
 

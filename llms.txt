@@ -8,9 +8,9 @@
 - [Test levels](spec/en/levels.adoc): TST-001 to TST-006.
 - [Unit and integration tests](spec/en/unit-integration.adoc): TST-010 to TST-017.
 - [Functional tests and BDD](spec/en/bdd.adoc): TST-020 to TST-029.
-- [Feature files in English and French](spec/en/feature-files.adoc): TST-030 to TST-035.
+- [Feature files in English and French](spec/en/feature-files.adoc): TST-030 to TST-036.
 - [Contract tests and conformance suites](spec/en/contracts-conformance.adoc): TST-040 to TST-048.
-- [Test data](spec/en/test-data.adoc): TST-050 to TST-056.
+- [Test data](spec/en/test-data.adoc): TST-050 to TST-057.
 - [Continuous integration and other checks](spec/en/ci.adoc): TST-060 to TST-066.
 
 ## Examples

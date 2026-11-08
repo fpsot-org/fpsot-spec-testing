@@ -37,8 +37,9 @@ It crosses the product and the systems around it.
 It runs in an environment that resembles production.
 
 [[TST-001]]
-*TST-001.* Each test of a project MUST belong to one level of this page.
+*TST-001.* Each test of the behavior of a project MUST belong to one level of this page.
 The project MUST mark the level of each test, such as by a folder or a tag.
+Load, performance and migration tests, under TST-052, and accessibility checks, under TST-066, sit outside the five levels.
 Continuous integration can then run each level as its own check, under TST-060.
 A reader also knows what a failing test proves and what it does not.
 

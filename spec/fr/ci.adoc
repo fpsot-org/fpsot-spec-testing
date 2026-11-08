@@ -7,16 +7,17 @@ Elles renvoient aussi aux spécifications qui fixent les autres vérifications, 
 == Vérifications obligatoires
 
 [[TST-060]]
-*TST-060.* Chaque niveau de test qui s’exécute dans l’{abbr-ci} DOIT être une vérification obligatoire des branches protégées, selon VCS-109.
+*TST-060.* Chaque niveau de test qui s’exécute sur les demandes de fusion DOIT être une vérification obligatoire des branches protégées.
+C’est une règle de {abbr-fpsot} : VCS-109 protège ces branches, et cette règle ajoute les tests à leurs vérifications.
 Les tests unitaires, d’intégration et de contrat DOIVENT s’exécuter à chaque demande de fusion, avec la vérification Gherkin de TST-034.
 Les tests fonctionnels DEVRAIENT s’exécuter à chaque demande de fusion.
-Les tests de bout en bout PEUVENT plutôt s’exécuter selon un horaire, mais DOIVENT réussir avant chaque version publiée.
+Les tests de bout en bout PEUVENT suivre un horaire, hors des vérifications obligatoires, mais DOIVENT réussir avant chaque version.
 Un test qui ne bloque pas une fusion ne protège pas la branche `main`, que VCS-101 garde prête à publier.
 
 [[TST-061]]
 *TST-061.* Un test qui échoue DOIT bloquer la fusion de sa demande de fusion.
 Une personne NE DOIT PAS désactiver, sauter ou supprimer un test qui échoue pour réussir une vérification, sauf selon TST-062.
-Le retrait d’un test DOIT être visible dans la demande de fusion, avec sa raison.
+Le retrait d’un test DOIT être visible dans la demande de fusion, avec sa raison énoncée dans sa description.
 Un échec est l’information que le test existe pour donner.
 
 == Tests instables
@@ -24,17 +25,19 @@ Un échec est l’information que le test existe pour donner.
 Un test instable réussit et échoue sur le même code, sans aucun changement.
 
 [[TST-062]]
-*TST-062.* L’{abbr-ci} NE DOIT PAS relancer d’elle-même un test échoué pour changer l’échec en réussite.
-Une équipe DOIT plutôt mettre un test instable en quarantaine.
-Elle marque le test, par exemple avec une étiquette `@quarantine`, et le retire de la vérification obligatoire.
+*TST-062.* L’{abbr-ci} NE DOIT PAS relancer d’elle-même un seul test échoué pour changer l’échec en réussite.
+Une tâche entière PEUT être relancée après une panne de l’infrastructure, comme un exécuteur perdu, avec la raison notée.
+Une équipe DOIT mettre un test instable en quarantaine, avec une marque comme `@quarantine`, hors des vérifications obligatoires.
+Un test en quarantaine DEVRAIT encore s’exécuter hors des vérifications obligatoires, et ses résultats DEVRAIENT rester visibles.
 Une nouvelle tentative que personne ne voit peut cacher un vrai défaut, comme une situation de concurrence dans le produit.
+Des résultats visibles montrent si une correction a fonctionné.
 
 [[TST-063]]
-*TST-063.* Chaque test en quarantaine DOIT avoir un billet qui nomme le test et fixe une échéance.
-L’échéance DEVRAIT tomber dans les 30 jours.
+*TST-063.* Chaque test en quarantaine DOIT avoir son propre billet, avec une échéance.
+L’échéance DEVRAIT tomber dans les 30 jours, et l’équipe PEUT la reporter une fois, en notant pourquoi.
 À l’échéance, l’équipe DOIT corriger le test et le remettre en place, ou le supprimer et noter pourquoi.
-D’ici là, le test DEVRAIT encore s’exécuter hors de la vérification obligatoire, et ses résultats DEVRAIENT rester visibles.
-Une quarantaine sans échéance dure toujours, et un test caché ne montre pas si une correction a fonctionné.
+Elle NE DOIT PAS supprimer le scénario d’une règle d’affaires avant que d’autres tests couvrent cette règle.
+Une quarantaine sans échéance dure toujours, et une règle sans test peut se briser sans que personne le voie.
 
 == Couverture
 

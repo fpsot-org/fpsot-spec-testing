@@ -8,7 +8,8 @@ They keep each test isolated, repeatable and fast enough to run on every change.
 
 [[TST-010]]
 *TST-010.* A unit test MUST run in isolation.
-It MUST NOT use the network, a shared database or a file outside a temporary folder made for the test.
+It MUST NOT use the network or a shared database.
+It MUST NOT write outside a temporary folder made for the test, and MAY read files in the {term-repository}.
 Each dependency outside the unit MUST be a {term-test-double}, under TST-002.
 A unit test then runs on any machine, with no setup, and fails only when the unit is wrong.
 
@@ -32,10 +33,11 @@ Developers skip tests that make them wait, and a fault then reaches the pull req
 == Integration tests
 
 [[TST-014]]
-*TST-014.* An integration test MUST use the real product of each dependency it names, at its production version.
+*TST-014.* An integration test MUST use the real product of each dependency it names.
+It MUST test each version of that product that the project supports, or at least the lowest and the highest.
 It SHOULD start that product for the test run, such as in a container.
 A test that uses a stand-in product, such as an in-memory database, MUST NOT count as its integration test.
-Two database products differ in their types, their locks and their errors.
+Two database products, or two versions of one, differ in their types, their locks and their errors.
 
 [[TST-015]]
 *TST-015.* Each integration test MUST create the data it needs, and MUST NOT rely on data that another test created.

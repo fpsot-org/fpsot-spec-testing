@@ -7,24 +7,48 @@ Usage: check-features.py DIR
 DIR holds one folder per language, en/ and fr/, with the same file names.
 The check fails when:
   - a feature file does not parse with the official Gherkin parser (TST-034);
-  - its first line is not the "# language:" header of its folder (TST-031);
-  - a scenario or a background has a description, which is what a misspelled
-    first step keyword gives, since the parser then reads that step as text;
+  - its first line is not exactly "# language: en" or "# language: fr",
+    as its folder requires (TST-031);
+  - it uses a keyword outside the table of TST-031, such as "Soit",
+    "Lorsque", "Exemple" or "*" (TST-031);
+  - a scenario, a Scenario Outline or a background has a description
+    (TST-036), which is also what a misspelled first step keyword gives,
+    since the parser then reads that step as text;
   - a scenario has no When step or no Then step (TST-024);
-  - a file exists in one language folder only (TST-032);
+  - a file exists in one language folder only (TST-030);
   - the two versions of a file differ in structure (TST-032): the order of
-    rules, scenarios and examples, their tags, the number and kind of their
-    steps, the cells of their data tables and the body rows of their
-    examples. Names, descriptions, step text and the header row of an
-    examples table are text in the language of the file, so they may differ.
+    rules, scenarios and examples, their tags, the number of steps and the
+    column of TST-031 that each step keyword comes from, the values between
+    double quotes in each step, the cells of data tables and the body rows of
+    examples. Names, the descriptions of features and rules, the other text of
+    steps and the header row of an examples table are text in the language of
+    the file, so they may differ.
 """
 import pathlib
+import re
 import sys
 
 from gherkin.parser import Parser
 from gherkin.token_matcher import TokenMatcher
 
 LANGS = ("en", "fr")
+
+# The keyword table of TST-031: one keyword per element and language.
+KEYWORDS = {
+    "en": {
+        "feature": "Feature", "background": "Background", "rule": "Rule",
+        "scenario": "Scenario", "outline": "Scenario Outline", "examples": "Examples",
+        "given": "Given", "when": "When", "then": "Then", "and": "And", "but": "But",
+    },
+    "fr": {
+        "feature": "Fonctionnalité", "background": "Contexte", "rule": "Règle",
+        "scenario": "Scénario", "outline": "Plan du scénario", "examples": "Exemples",
+        "given": "Étant donné", "when": "Quand", "then": "Alors", "and": "Et", "but": "Mais",
+    },
+}
+STEP_COLUMNS = ("given", "when", "then", "and", "but")
+QUOTED = re.compile(r'"([^"]*)"')
+PLACEHOLDER = re.compile(r"<([^<>]+)>")
 
 
 def walk(children):
@@ -38,11 +62,43 @@ def walk(children):
             yield child["scenario"]
 
 
+def check_keywords(path, lang, feature, errors):
+    table = KEYWORDS[lang]
+    steps_of = {table[c]: c for c in STEP_COLUMNS}
+
+    def expect(node, column):
+        if node["keyword"].strip() != table[column]:
+            errors.append(f"{path}:{node['location']['line']}: keyword '{node['keyword'].strip()}';"
+                          f" TST-031 allows '{table[column]}' here")
+
+    expect(feature, "feature")
+
+    def visit(children):
+        for child in children:
+            if "rule" in child:
+                expect(child["rule"], "rule")
+                visit(child["rule"]["children"])
+                continue
+            node = child.get("background") or child.get("scenario")
+            if "background" in child:
+                expect(node, "background")
+            else:
+                expect(node, "outline" if node.get("examples") else "scenario")
+                for e in node.get("examples", []):
+                    expect(e, "examples")
+            for s in node.get("steps", []):
+                if s["keyword"].strip() not in steps_of:
+                    errors.append(f"{path}:{s['location']['line']}: step keyword '{s['keyword'].strip()}';"
+                                  f" TST-031 allows only {', '.join(repr(k) for k in steps_of)}")
+
+    visit(feature["children"])
+
+
 def parse(path, lang, errors):
     text = path.read_text(encoding="utf-8")
     first = text.splitlines()[0] if text else ""
-    if first.replace(" ", "") != f"#language:{lang}":
-        errors.append(f"{path}:1: the first line must be '# language: {lang}'")
+    if first != f"# language: {lang}":
+        errors.append(f"{path}:1: the first line must be exactly '# language: {lang}'")
     try:
         doc = Parser().parse(text, TokenMatcher())
     except Exception as e:  # The parser raises one composite error with every finding.
@@ -53,10 +109,11 @@ def parse(path, lang, errors):
     if not doc.get("feature"):
         errors.append(f"{path}: no Feature")
         return None
+    check_keywords(path, lang, doc["feature"], errors)
     for node in walk(doc["feature"]["children"]):
         where = f"{path}:{node['location']['line']}: '{node['keyword']}'"
         if node.get("description", "").strip():
-            errors.append(f"{where} has a description; check the keyword of its first step,"
+            errors.append(f"{where} has a description (TST-036); check the keyword of its first step,"
                           " since the parser reads lines with no keyword as a description")
         kinds = {s["keywordType"] for s in node.get("steps", [])}
         if "examples" in node and not {"Action", "Outcome"} <= kinds:
@@ -72,35 +129,49 @@ def table(rows):
     return [[c["value"] for c in r["cells"]] for r in rows or []]
 
 
-def steps(node):
+def column(lang, keyword):
+    for c in STEP_COLUMNS:
+        if KEYWORDS[lang][c] == keyword.strip():
+            return c
+    return keyword.strip()
+
+
+def steps(node, lang, header):
+    """Each step as its keyword column, its quoted values and its argument.
+
+    A placeholder such as <full name> becomes the position of its column in the
+    examples header, since the header names differ between the languages."""
     out = []
     for s in node.get("steps", []):
+        values = [PLACEHOLDER.sub(lambda m: f"<{header.index(m.group(1))}>" if m.group(1) in header
+                                  else m.group(0), v) for v in QUOTED.findall(s["text"])]
         arg = None
         if "dataTable" in s:
             arg = ("table", table(s["dataTable"]["rows"]))
         elif "docString" in s:
             arg = ("docString", s["docString"].get("mediaType"))
-        out.append((s["keywordType"], arg))
+        out.append((column(lang, s["keyword"]), values, arg))
     return out
 
 
-def shape(children):
+def shape(children, lang):
     """The parts of a feature or rule that both language versions must share."""
     out = []
     for child in children:
         if "background" in child:
-            out.append(("background", steps(child["background"])))
+            out.append(("background", steps(child["background"], lang, [])))
         elif "rule" in child:
             r = child["rule"]
-            out.append(("rule", tags(r), shape(r["children"])))
+            out.append(("rule", tags(r), shape(r["children"], lang)))
         elif "scenario" in child:
             s = child["scenario"]
-            examples = [
-                (tags(e), len(e["tableHeader"]["cells"]) if e.get("tableHeader") else 0,
-                 table(e.get("tableBody")))
-                for e in s.get("examples", [])
-            ]
-            out.append(("scenario", tags(s), steps(s), examples))
+            header = []
+            examples = []
+            for e in s.get("examples", []):
+                cells = [c["value"] for c in e["tableHeader"]["cells"]] if e.get("tableHeader") else []
+                header = header or cells
+                examples.append((tags(e), len(cells), table(e.get("tableBody"))))
+            out.append(("scenario", tags(s), steps(s, lang, header), examples))
     return out
 
 
@@ -135,8 +206,8 @@ def main():
         en, fr = docs["en"][name], docs["fr"][name]
         if en is None or fr is None:
             continue
-        a = ("feature", tags(en["feature"]), shape(en["feature"]["children"]))
-        b = ("feature", tags(fr["feature"]), shape(fr["feature"]["children"]))
+        a = ("feature", tags(en["feature"]), shape(en["feature"]["children"], "en"))
+        b = ("feature", tags(fr["feature"]), shape(fr["feature"]["children"], "fr"))
         d = first_difference(a, b)
         if d:
             errors.append(f"{root}: en/{name} and fr/{name} are not in parity: {d}")

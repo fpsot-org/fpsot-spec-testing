@@ -26,7 +26,7 @@ description:
     shortDescription: Règles sur les tests des projets FPSOT, avec le BDD en français et en anglais.
     longDescription: >
       Règles sur la façon dont les projets FPSOT testent leurs logiciels et
-      leurs spécifications : les niveaux de test et les doublons de test, les
+      leurs spécifications : les niveaux de test et les doublures de test, les
       tests unitaires et d’intégration, le BDD avec des fichiers de
       fonctionnalité Gherkin en français et en anglais gardés en parité, les
       tests de contrat sur les descriptions d’API publiées, les suites de

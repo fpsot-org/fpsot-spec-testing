@@ -8,10 +8,11 @@ It still has the form of real data, in both official languages.
 == Synthetic data only
 
 [[TST-050]]
-*TST-050.* Tests, fixtures, examples, demonstrations and test environments MUST use synthetic data only.
-They MUST NOT use personal information from a production system.
-This also holds for an extract, a copy, a masked version or a de-identified version of that information.
-People can often trace masked data back to a person.
+*TST-050.* Tests, fixtures, examples and demonstrations in a {term-repository}, {abbr-ci-first} runs and shared test environments MUST use synthetic data only.
+They MUST NOT use personal information from production, even in an extract, a copy, a masked or a de-identified version.
+A rehearsal of a migration on production data, in a controlled pre-production environment, is outside this specification.
+It follows the privacy law of the institution.
+Masked data often leads back to a person.
 Open source {term-repository} contents and test logs are public, and nobody can recall them.
 
 [[TST-051]]
@@ -21,7 +22,7 @@ The data then has the form of real data, with each required field and each code 
 A fixed seed keeps the tests repeatable, under TST-004.
 
 [[TST-052]]
-*TST-052.* A test environment that needs the volume of production MUST reach it with generated data.
+*TST-052.* A shared test environment that needs the volume of production MUST reach it with generated data.
 It MUST NOT load production data for this purpose.
 Tests of load and migration need many records, but not real ones.
 
@@ -57,11 +58,19 @@ Many faults show up only with accents, apostrophes or one-part names, which are 
 * A name with a typographic apostrophe, such as `D’Amours`, and one with a straight apostrophe.
 * A name of one part only, such as `Tanvir`.
 * A name with letters from beyond Western European languages, such as `Đặng Thị Ngọc Ánh`.
+* A name of one character, which LOC-051 requires, and a name of 100 characters, which it recommends.
 
 [[TST-056]]
 *TST-056.* A text value in a test MUST keep its exact characters, and a check MUST compare it exactly.
 A test MUST NOT remove accents or change case to make a value match.
 A product that loses an accent then fails its tests, instead of passing them.
+
+== Identifiers with a check digit
+
+[[TST-057]]
+*TST-057.* A test identifier with a check digit, such as a social insurance number, MUST come from a never-assigned range.
+Where the issuer documents no such range, it MUST be a value that fails the check.
+A valid value outside such a range can belong to a real person.
 
 == References
 

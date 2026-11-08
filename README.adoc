@@ -12,10 +12,10 @@ Read the normative text in `spec/en/` or `spec/fr/`.
 Each requirement has an ID from `TST-001` to `TST-066`.
 
 * Mark the level of each test, and run each level as a required check of the main branch (TST-001, TST-060).
-* Keep each feature file in `features/en/` and `features/fr/`, with the same name and structure (TST-030 to TST-033).
+* Keep each feature file in `features/en/` and `features/fr/`, with the same name and structure (TST-030 to TST-033, TST-036).
 * Parse every feature file in the continuous integration and check the parity of the two versions (TST-034).
   In this repository, the `gherkin` job of `.github/workflows/ci.yml` runs `examples/test-features.sh`.
-* Use synthetic data only, with reserved values and names in both languages (TST-050 to TST-056).
+* Use synthetic data only, with reserved values and names in both languages (TST-050 to TST-057).
 
 A business rule is plain code that an institution can override.
 Its tests use the rule's own interface, so they check the default rule and any replacement (TST-005, TST-045).

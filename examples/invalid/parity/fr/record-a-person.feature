@@ -1,6 +1,6 @@
 # language: fr
 # SPDX-License-Identifier: Community-Spec-1.0
-# Exemple de fonctionnalité de la spécification FPSOT sur les tests (TST-030 à TST-035).
+# Exemple de fonctionnalité de la spécification FPSOT sur les tests (TST-030 à TST-036).
 # Une fixture brisée : il manque le scénario @party-contact-002 dans cette version.
 # expect: not in parity
 # Elle décrit des règles de la spécification FPSOT sur les modèles de données. Toutes les données sont synthétiques (TST-050 à TST-056).
@@ -13,7 +13,7 @@ Fonctionnalité: Inscrire une personne comme partie
 
     @party-person-001
     Scénario: Une personne qui n’a qu’un seul nom
-      Étant donné une personne qui écrit son nom "Tanvir"
+      Étant donné une personne dont le nom s’écrit "Tanvir"
       Quand l’organisme public inscrit la personne
       Alors l’enregistrement est une partie du type "person"
       Et le nom complet de la personne est "Tanvir"
@@ -21,7 +21,7 @@ Fonctionnalité: Inscrire une personne comme partie
 
     @party-person-002
     Plan du scénario: Un nom garde ses accents et ses signes
-      Étant donné une personne qui écrit son nom "<nom complet>"
+      Étant donné une personne dont le nom s’écrit "<nom complet>"
       Quand l’organisme public inscrit la personne
       Alors le nom complet de la personne est "<nom complet>"
 
@@ -32,6 +32,8 @@ Fonctionnalité: Inscrire une personne comme partie
         | Benoît D’Amours         |
         | Zoë Ní Bhriain          |
         | Đặng Thị Ngọc Ánh       |
+        | Ō                       |
+        | Marie-Ève Joséphine Anne-Sophie Lévesque-Côté Beauchemin-Saint-Onge Desrosiers-Ouellet Tremblay-Roux |
 
   Règle: Les coordonnées gardent la forme du modèle Party
 

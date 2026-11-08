@@ -1,6 +1,6 @@
 # language: en
 # SPDX-License-Identifier: Community-Spec-1.0
-# Example feature of the FPSOT testing specification (TST-030 to TST-035).
+# Example feature of the FPSOT testing specification (TST-030 to TST-036).
 # It describes rules of the FPSOT data models specification. All data is synthetic (TST-050 to TST-056).
 @party
 Feature: Record a person as a party
@@ -30,6 +30,8 @@ Feature: Record a person as a party
         | Benoît D’Amours         |
         | Zoë Ní Bhriain          |
         | Đặng Thị Ngọc Ánh       |
+        | Ō                       |
+        | Marie-Ève Joséphine Anne-Sophie Lévesque-Côté Beauchemin-Saint-Onge Desrosiers-Ouellet Tremblay-Roux |
 
   Rule: Contact data keeps the form of the Party model
 

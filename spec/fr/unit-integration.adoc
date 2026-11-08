@@ -8,8 +8,9 @@ Elles gardent chaque test isolé, reproductible et assez rapide pour s’exécut
 
 [[TST-010]]
 *TST-010.* Un test unitaire DOIT s’exécuter de façon isolée.
-Il NE DOIT PAS employer le réseau, une base de données partagée ou un fichier hors de son dossier temporaire.
-Chaque dépendance hors de l’unité DOIT être un {term-test-double}, selon TST-002.
+Il NE DOIT PAS employer le réseau ni une base de données partagée.
+Il NE DOIT PAS écrire hors d’un dossier temporaire créé pour le test, et PEUT lire les fichiers du {term-repository}.
+Chaque dépendance hors de l’unité DOIT être une {term-test-double}, selon TST-002.
 Un test unitaire s’exécute alors sur toute machine, sans préparation, et échoue seulement quand l’unité est fautive.
 
 [[TST-011]]
@@ -22,21 +23,23 @@ Un test qui lit la vraie horloge peut réussir aujourd’hui et échouer à minu
 
 [[TST-012]]
 *TST-012.* Un test unitaire DEVRAIT vérifier un seul comportement.
-Son nom DOIT énoncer ce comportement et son résultat, par exemple « rejette une période dont la fin précède le début ».
+Son nom DOIT énoncer ce comportement et son résultat.
+Un exemple est « rejette une période dont la fin précède le début ».
 Un test qui échoue nomme alors le comportement brisé dans le rapport, avant que quiconque ouvre le code.
 
 [[TST-013]]
 *TST-013.* Les tests unitaires d’un projet DEVRAIENT être assez rapides pour qu’on les exécute tous avant chaque archivage.
-Un test unitaire lent DEVRAIT passer au niveau de l’intégration, ou remplacer sa dépendance lente par un {term-test-double}.
+Un test unitaire lent DEVRAIT passer au niveau de l’intégration, ou remplacer sa dépendance lente par une {term-test-double}.
 Les équipes de développement sautent les tests qui les font attendre, et un défaut atteint alors la demande de fusion.
 
 == Tests d’intégration
 
 [[TST-014]]
-*TST-014.* Un test d’intégration DOIT employer le vrai produit de chaque dépendance qu’il nomme, dans sa version de production.
+*TST-014.* Un test d’intégration DOIT employer le vrai produit de chaque dépendance qu’il nomme.
+Il DOIT tester chaque version prise en charge du produit, ou au moins la plus ancienne et la plus récente.
 Il DEVRAIT démarrer ce produit pour l’exécution des tests, par exemple dans un conteneur.
 Un test qui emploie un produit de remplacement, comme une base en mémoire, NE DOIT PAS compter comme test d’intégration.
-Deux produits de base de données diffèrent par leurs types, leurs verrous et leurs erreurs.
+Deux produits de base de données, ou deux versions d’un produit, diffèrent par leurs types, leurs verrous et leurs erreurs.
 
 [[TST-015]]
 *TST-015.* Chaque test d’intégration DOIT créer les données dont il a besoin.
