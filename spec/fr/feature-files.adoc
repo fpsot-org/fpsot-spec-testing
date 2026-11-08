@@ -10,7 +10,7 @@ Les deux versions sont des tests, et les deux s’exécutent.
 *TST-030.* Chaque fichier de fonctionnalité DOIT exister en français et en anglais.
 Les deux versions DOIVENT avoir le même nom de fichier, dans un dossier par langue, comme `features/en/` et `features/fr/`.
 Le nom de fichier DOIT être en anglais et en kebab-case, comme `record-a-person.feature`.
-Cette exigence étend par analogie NAM-070, qui vise les fichiers des dépôts de spécification, aux fichiers de fonctionnalité.
+Cette exigence suit NAM-072 de la spécification sur le nommage.
 Les spécialistes du domaine au Québec et au Canada peuvent alors lire et approuver les scénarios dans leur langue.
 
 == Mots clés
@@ -99,4 +99,5 @@ Beaucoup d’outils d’étapes lisent une valeur sous cette forme, et les deux 
 |===
 |Version |Date |Changement
 |0.1.0 |2026-11-08 |Première version.
+|0.1.1 |2026-11-08 |L'exigence TST-030 cite maintenant NAM-072 de la spécification sur le nommage.
 |===

@@ -62,7 +62,7 @@ Le lectorat voit alors chaque règle d’affaires avec ses exemples.
 *TST-027.* Chaque scénario DOIT porter une étiquette qui l’identifie, comme `@party-person-001`.
 Aucun autre scénario du produit ne peut employer cette étiquette.
 Les étiquettes DOIVENT être en anglais et en kebab-case.
-Elle étend par analogie NAM-001 et NAM-010 de la spécification sur le nommage, qui ne visent pas les étiquettes.
+Elle suit NAM-001 et NAM-010 de la spécification sur le nommage.
 Une étiquette qui choisit un groupe de scénarios, comme `@party`, DEVRAIT nommer une partie du domaine.
 L’étiquette d’identification relie un scénario à son autre version linguistique et à ses résultats de test.
 
@@ -109,4 +109,5 @@ Les pages de GovStack que cette comparaison a lues ne fixent aucune règle sur l
 |===
 |Version |Date |Changement
 |0.1.0 |2026-11-08 |Première version.
+|0.1.1 |2026-11-08 |L'exigence TST-027 cite maintenant NAM-001 et NAM-010 directement.
 |===
