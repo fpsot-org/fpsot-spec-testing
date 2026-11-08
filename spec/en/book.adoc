@@ -1,4 +1,4 @@
-= Specification title
+= FPSOT testing specification
 :doctype: book
 :toc:
 
