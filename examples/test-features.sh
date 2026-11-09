@@ -15,7 +15,7 @@ here="$(cd "$(dirname "$0")" && pwd)"
 python=${PYTHON:-python3}
 fail=0
 
-want=$(sed -n 's/^gherkin-official==//p' "$here/requirements.txt")
+want=$(sed -n 's/^gherkin-official==\([^ \]*\).*/\1/p' "$here/requirements.txt")
 have=$($python -I -c "import importlib.metadata as m; print(m.version('gherkin-official'))" 2>/dev/null)
 if [ -z "$want" ] || [ "$have" != "$want" ]; then
   echo "FAIL: gherkin-official ${want:-(no pin in requirements.txt)} is required, found ${have:-none}"; exit 1
