@@ -6,6 +6,10 @@ and versions follow [Semantic Versioning 2.0.0](https://semver.org/spec/v2.0.0.h
 
 ## [Unreleased]
 
+### Changed
+
+- The example checker's Python packages are pinned with their hashes, and the `gherkin` CI job installs them with `--require-hashes`. The specification text does not change.
+
 ## [0.1.1] - 2026-11-08
 
 ### Changed
